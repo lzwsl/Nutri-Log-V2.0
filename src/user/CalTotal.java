@@ -2,7 +2,6 @@ package user;
 
 import java.util.ArrayList;
 
-
 public class CalTotal {
     static ArrayList<Integer> calHistory = new ArrayList<>();
 

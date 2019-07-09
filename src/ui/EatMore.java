@@ -11,6 +11,7 @@ public class EatMore {
     public static void main(String[] args) {
 //        calHistory = new ArrayList<>();
         scanner = new Scanner(System.in);
+//        SetCalQuota.CalQuota();
         EatMore();
     }
 
