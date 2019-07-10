@@ -1,6 +1,7 @@
 package ui;
 
 import user.CalCalc;
+import user.SetCalQuota;
 
 import java.util.Scanner;
 
@@ -11,7 +12,8 @@ public class EatMore {
     public static void main(String[] args) {
 //        calHistory = new ArrayList<>();
         scanner = new Scanner(System.in);
-//        SetCalQuota.CalQuota();
+
+        SetCalQuota.CalQuota();
         EatMore();
     }
 
@@ -19,10 +21,10 @@ public class EatMore {
         String operation = "";
         Integer calories = 0;
         while (true) {
-            System.out.println("Can you eat more today?");
+            System.out.println("Can you eat more today? (yes/no)");
             operation = scanner.nextLine();
             if (operation.equals("yes")) {
-                System.out.println("Are you sure?");
+                System.out.println("Are you sure? (yes/no)");
                 operation = scanner.nextLine();
                 if (operation.equals("yes")) {
                     System.out.println("Fine ... How many calories?");
@@ -32,6 +34,7 @@ public class EatMore {
                     CalCalc.ableToEat(calories);
                 } else if (operation.equals("no")) {
                     System.out.println("Good Job!");
+                    break;
                 }
             } else if (operation.equals("no")) {
                 System.out.println("Good Job!");
