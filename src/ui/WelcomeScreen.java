@@ -6,7 +6,6 @@ import java.util.Scanner;
 
 public class WelcomeScreen {
     static Scanner welcomeScan;
-    static Scanner scanner;
 
     public static void main(String[] args) {
         System.out.println("Nutri-Log V1");
@@ -16,7 +15,7 @@ public class WelcomeScreen {
     }
 
     public static void WelcomeScreen() {
-        Scanner welcomeScan = new Scanner(System.in);
+        welcomeScan = new Scanner(System.in);
         Integer option = 0;
         System.out.println("Please choose from the following;");
         System.out.println("(1) View/Edit Calorie Quota");
@@ -26,6 +25,7 @@ public class WelcomeScreen {
         option = welcomeScan.nextInt();
         if (option.equals(1)){
             System.out.println("Your Set Quota is: " + SetCalQuota.getCalorieQuota());
+            SetCalQuota.editCalorieQuota();
         }
         if (option.equals(2)){
             EatMore.EatMore();
