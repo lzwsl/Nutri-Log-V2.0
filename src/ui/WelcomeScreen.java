@@ -14,7 +14,6 @@ public class WelcomeScreen {
 
     public static void main(String[] args) {
         System.out.println("Nutri-Log v1.0");
-
         WelcomeScreen menu = new WelcomeScreen();
         menu.WelcomeScreen();
     }
@@ -31,12 +30,14 @@ public class WelcomeScreen {
         ArrayList<Integer> calHistory = new ArrayList<Integer>();
         Integer option;
         for (int i = 1; i != 0; ) {
+            System.out.println("");
             System.out.println("Please choose from the following;");
             System.out.println("(1) View/Edit Calorie Quota");
             System.out.println("(2) Input Calories To Be Consumed");
             System.out.println("(3) View Current Calorie Total");
             System.out.println("(0) Close Application");
             option = welcomeScan.nextInt();
+            System.out.println("");
             if (option.equals(1)) {
                 System.out.println("Your Set Quota is: " + settingQuota.getCalorieQuota());
                 settingQuota.editCalorieQuota();
