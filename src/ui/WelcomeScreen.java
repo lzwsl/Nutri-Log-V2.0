@@ -46,7 +46,7 @@ public class WelcomeScreen {
                 moreEating.EatMore(totaCal, settingQuota, calHistory);
             }
             else if (option.equals(3)) {
-                System.out.println("Your Current Calories Consumed: " + totaCal.retrieveCurrentCalories());
+                System.out.println("Your Current Calories Consumed: " + totaCal.getCurrentCalories());
             }
             else if (option.equals(0)) {
                 i = 0;

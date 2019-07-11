@@ -19,8 +19,8 @@ public class CalTotal {
         return sum;
     }
 
-    //EFFECTS: retreives total calories consumed.
-    public Integer retrieveCurrentCalories() {
+    //EFFECTS: get total calories consumed.
+    public Integer getCurrentCalories() {
         return calorietotal;
     }
 }
