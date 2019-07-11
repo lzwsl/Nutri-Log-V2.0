@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 public class CalTotal {
     static ArrayList<Integer> calHistory = new ArrayList<>();
+    static Integer calorietotal;
 
     public static Integer totalCalories(Integer calories) {
         calHistory.add(calories);
@@ -11,6 +12,11 @@ public class CalTotal {
         for(Integer i: calHistory) {
             sum = sum + i;
         }
+        calorietotal = sum;
         return sum;
+    }
+
+    public static Integer retrieveCurrentCalories() {
+        return calorietotal;
     }
 }
