@@ -1,16 +1,20 @@
 package ui;
 
 import user.CalCalc;
+import user.CalTotal;
+import user.SetCalQuota;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class EatMore {
-    static Scanner scanner;
+    private Scanner scanner;
 
-    public static void EatMore() {
+    public void EatMore(CalTotal c, SetCalQuota s, ArrayList<Integer> a) {
+        CalCalc caloricCalc = new CalCalc();
         scanner = new Scanner(System.in);
-        String operation = "";
-        Integer calories = 0;
+        String operation;
+        Integer calories;
         System.out.println("Can you eat more today? (yes/no)");
         operation = scanner.nextLine();
         if (operation.equals("yes")) {
@@ -21,7 +25,7 @@ public class EatMore {
                 calories = scanner.nextInt();
                 System.out.println("You have entered " + calories + " calories");
                 operation = scanner.nextLine();
-                CalCalc.ableToEat(calories);
+                caloricCalc.ableToEat(calories, c, s, a);
             } else if (operation.equals("no")) {
                 System.out.println("Return to Welcome Screen?");
             }

@@ -3,20 +3,21 @@ package user;
 import java.util.ArrayList;
 
 public class CalTotal {
-    static ArrayList<Integer> calHistory = new ArrayList<>();
-    static Integer calorietotal;
+    private ArrayList<Integer> calHistory;
+    private Integer calorietotal;
 
-    public static Integer totalCalories(Integer calories) {
-        calHistory.add(calories);
+    public Integer totalCalories(Integer calories, ArrayList<Integer> a) {
+//        ArrayList<Integer> calHistory = new ArrayList<Integer>();
+        a.add(calories);
         Integer sum = 0;
-        for(Integer i: calHistory) {
+        for(Integer i: a) {
             sum = sum + i;
         }
         calorietotal = sum;
         return sum;
     }
 
-    public static Integer retrieveCurrentCalories() {
+    public Integer retrieveCurrentCalories() {
         return calorietotal;
     }
 }

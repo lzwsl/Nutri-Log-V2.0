@@ -1,41 +1,60 @@
 package ui;
 
+import user.CalTotal;
 import user.SetCalQuota;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class WelcomeScreen {
-    static Scanner welcomeScan;
+    private Scanner welcomeScan;
+//    private SetCalQuota settingQuota;
+//    private EatMore moreEating;
+//    private CalTotal totaCal;
 
     public static void main(String[] args) {
-        System.out.println("Nutri-Log V1");
-        SetCalQuota.CalQuota();
-        WelcomeScreen.WelcomeScreen();
-        EatMore.EatMore();
-    }
+        System.out.println("Nutri-Log v1.0");
 
-    public static void WelcomeScreen() {
+        WelcomeScreen menu = new WelcomeScreen();
+        menu.WelcomeScreen();
+    }
+    //MODIFIES: this, SetCalQuota, EatMore
+    //EFFECTS: interface for user to navigate application
+    private void WelcomeScreen() {
+        SetCalQuota settingQuota;
+        settingQuota = new SetCalQuota();
+        settingQuota.CalQuota();
+//        SetCalQuota settingQuota = new SetCalQuota();
+        EatMore moreEating = new EatMore();
+        CalTotal totaCal = new CalTotal();
         welcomeScan = new Scanner(System.in);
-        Integer option = 0;
-        System.out.println("Please choose from the following;");
-        System.out.println("(1) View/Edit Calorie Quota");
-        System.out.println("(2) Input New Food Item");
-        System.out.println("(3) View Current Calorie Total");
-        System.out.println("(0) Close Application");
-        option = welcomeScan.nextInt();
-        if (option.equals(1)){
-            System.out.println("Your Set Quota is: " + SetCalQuota.getCalorieQuota());
-            SetCalQuota.editCalorieQuota();
+        ArrayList<Integer> calHistory = new ArrayList<Integer>();
+        Integer option;
+        for (int i = 1; i != 0; ) {
+            System.out.println("Please choose from the following;");
+            System.out.println("(1) View/Edit Calorie Quota");
+            System.out.println("(2) Input Calories To Be Consumed");
+            System.out.println("(3) View Current Calorie Total");
+            System.out.println("(0) Close Application");
+            option = welcomeScan.nextInt();
+            if (option.equals(1)) {
+                System.out.println("Your Set Quota is: " + settingQuota.getCalorieQuota());
+                settingQuota.editCalorieQuota();
+            }
+            else if (option.equals(2)) {
+                moreEating.EatMore(totaCal, settingQuota, calHistory);
+            }
+            else if (option.equals(3)) {
+                System.out.println("Your Current Calories Consumed: " + totaCal.retrieveCurrentCalories());
+            }
+            else if (option.equals(0)) {
+                i = 0;
+            }
+            else
+                System.out.println("Invalid Entry, Try Again.");
+
         }
-        if (option.equals(2)){
-            EatMore.EatMore();
-        }
-        if (option.equals(3)){
-            System.out.println("Your Current Calories Consumed: " + user.CalTotal.retrieveCurrentCalories());
-        }
-        if (option.equals(0)){
-            System.exit(0);
-        }
-        WelcomeScreen();
+//        System.exit(0);
+//        WelcomeScreen();
     }
 }
