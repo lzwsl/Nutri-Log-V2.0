@@ -18,7 +18,7 @@ public class WelcomeScreen {
         WelcomeScreen menu = new WelcomeScreen();
         menu.WelcomeScreen();
     }
-    //MODIFIES: this, SetCalQuota, EatMore
+    //MODIFIES: this, SetCalQuota, EatMore, CalTotal, ArrayList<Integer>
     //EFFECTS: interface for user to navigate application
     private void WelcomeScreen() {
         SetCalQuota settingQuota;

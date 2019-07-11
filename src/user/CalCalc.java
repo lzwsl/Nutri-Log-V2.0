@@ -5,6 +5,9 @@ import java.util.ArrayList;
 
 public class CalCalc {
 
+    //MODIFIES: this, CalTotal, SetCalQuota, ArrayList<Integer>
+    //EFFECTS: takes in total calories and compares to the calorie quota set by the user,
+    //         if the total calories is less or more, will output different responses.
     public void ableToEat(Integer calories, CalTotal c, SetCalQuota s, ArrayList<Integer> a) {
 //        CalTotal caloricTotal = new CalTotal();
 //        SetCalQuota caloricQuotaSet = new SetCalQuota();

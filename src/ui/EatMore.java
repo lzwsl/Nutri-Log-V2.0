@@ -10,6 +10,9 @@ import java.util.Scanner;
 public class EatMore {
     private Scanner scanner;
 
+    //MODIFIES: this, CalTotal, SetCalQuota, ArrayList<Integer>
+    //EFFECTS: questions user and confirms calorie consumption, takes in
+    //         user input and forwards to calorie calculations.
     public void EatMore(CalTotal c, SetCalQuota s, ArrayList<Integer> a) {
         CalCalc caloricCalc = new CalCalc();
         scanner = new Scanner(System.in);
