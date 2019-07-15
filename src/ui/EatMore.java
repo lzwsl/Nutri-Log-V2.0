@@ -1,39 +1,55 @@
 package ui;
 
+import model.Food;
 import user.CalCalc;
 import user.CalTotal;
 import user.SetCalQuota;
 
+import java.beans.Transient;
+import java.lang.annotation.Annotation;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class EatMore {
+public class EatMore implements Transient {
     private Scanner scanner;
+    private Food foodItem;
 
     //MODIFIES: this, CalTotal, SetCalQuota, ArrayList<Integer>
     //EFFECTS: questions user and confirms calorie consumption, takes in
     //         user input and forwards to calorie calculations.
-    public void EatMore(CalTotal c, SetCalQuota s, ArrayList<Integer> a) {
+    public void EatMore(CalTotal c, SetCalQuota s, ArrayList<Food> a) {
         CalCalc caloricCalc = new CalCalc();
         scanner = new Scanner(System.in);
         String operation;
-        Integer calories;
         System.out.println("Can you eat more today? (yes/no)");
         operation = scanner.nextLine();
         if (operation.equals("yes")) {
             System.out.println("Are you sure? (yes/no)");
             operation = scanner.nextLine();
             if (operation.equals("yes")) {
-                System.out.println("Fine ... How many calories?");
-                calories = scanner.nextInt();
-                System.out.println("You have entered " + calories + " calories");
+                foodItem = new Food("",0);
+                System.out.println("Please Enter Name of Food Consumed");
+                foodItem.setFoodName(scanner.nextLine());
+                System.out.println("Please Enter Calories Consumed");
+                foodItem.setFoodCalories(scanner.nextInt());
+                System.out.println("You have entered item: " + foodItem.getFoodName() + " with " + foodItem.getFoodCalories() + " calories");
                 operation = scanner.nextLine();
-                caloricCalc.ableToEat(calories, c, s, a);
+                caloricCalc.ableToEat(foodItem, c, s, a);
             } else if (operation.equals("no")) {
                 System.out.println("Return to Welcome Screen?");
             }
         } else if (operation.equals("no")) {
             System.out.println("Return to Welcome Screen?");
         }
+    }
+
+    @Override
+    public boolean value() {
+        return false;
+    }
+
+    @Override
+    public Class<? extends Annotation> annotationType() {
+        return null;
     }
 }

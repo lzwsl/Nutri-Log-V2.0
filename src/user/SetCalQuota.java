@@ -1,8 +1,10 @@
 package user;
 
+import java.beans.Transient;
+import java.lang.annotation.Annotation;
 import java.util.Scanner;
 
-public class SetCalQuota {
+public class SetCalQuota implements Transient {
     private Scanner CalInput;
     private int calquote;
     private Integer caloriequota;
@@ -36,5 +38,15 @@ public class SetCalQuota {
         }
         else
         System.out.println("Your calorie quota is unchanged");
+    }
+
+    @Override
+    public boolean value() {
+        return false;
+    }
+
+    @Override
+    public Class<? extends Annotation> annotationType() {
+        return null;
     }
 }

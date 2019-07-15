@@ -2,32 +2,27 @@ package ui;
 
 import user.CalTotal;
 import user.SetCalQuota;
+import model.Food;
 
+import java.io.*;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class WelcomeScreen {
-    private Scanner welcomeScan;
-//    private SetCalQuota settingQuota;
-//    private EatMore moreEating;
-//    private CalTotal totaCal;
+public class WelcomeScreen implements Serializable{
+//    private Scanner welcomeScan;
 
-    public static void main(String[] args) {
-        System.out.println("Nutri-Log v1.0");
-        WelcomeScreen menu = new WelcomeScreen();
-        menu.WelcomeScreen();
-    }
+
+
     //MODIFIES: this, SetCalQuota, EatMore, CalTotal, ArrayList<Integer>
     //EFFECTS: interface for user to navigate application
-    private void WelcomeScreen() {
+    public void WelcomeScreen() {
         SetCalQuota settingQuota;
         settingQuota = new SetCalQuota();
         settingQuota.CalQuota();
-//        SetCalQuota settingQuota = new SetCalQuota();
         EatMore moreEating = new EatMore();
         CalTotal totaCal = new CalTotal();
-        welcomeScan = new Scanner(System.in);
-        ArrayList<Integer> calHistory = new ArrayList<Integer>();
+        Scanner welcomeScan = new Scanner(System.in);
+        ArrayList<Food> calHistory = new ArrayList<>();
         Integer option;
         for (int i = 1; i != 0; ) {
             System.out.println("");
@@ -43,6 +38,7 @@ public class WelcomeScreen {
                 settingQuota.editCalorieQuota();
             }
             else if (option.equals(2)) {
+                Food f;
                 moreEating.EatMore(totaCal, settingQuota, calHistory);
             }
             else if (option.equals(3)) {
@@ -55,7 +51,5 @@ public class WelcomeScreen {
                 System.out.println("Invalid Entry, Try Again.");
 
         }
-//        System.exit(0);
-//        WelcomeScreen();
     }
 }

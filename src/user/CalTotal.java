@@ -1,19 +1,22 @@
 package user;
 
+import model.Food;
+
+import java.beans.Transient;
+import java.lang.annotation.Annotation;
 import java.util.ArrayList;
 
-public class CalTotal {
+public class CalTotal implements Transient {
     private ArrayList<Integer> calHistory;
     private Integer calorietotal;
 
     //MODIFIES: this, Arraylist<Integer>
     //EFFECTS: calculates total calories consumed.
-    public Integer totalCalories(Integer calories, ArrayList<Integer> a) {
-//        ArrayList<Integer> calHistory = new ArrayList<Integer>();
-        a.add(calories);
+    public Integer totalCalories(Food f, ArrayList<Food> a) {
+        a.add(f);
         Integer sum = 0;
-        for(Integer i: a) {
-            sum = sum + i;
+        for(Food i: a) {
+            sum = sum + i.getFoodCalories();
         }
         calorietotal = sum;
         return sum;
@@ -22,5 +25,15 @@ public class CalTotal {
     //EFFECTS: get total calories consumed.
     public Integer getCurrentCalories() {
         return calorietotal;
+    }
+
+    @Override
+    public boolean value() {
+        return false;
+    }
+
+    @Override
+    public Class<? extends Annotation> annotationType() {
+        return null;
     }
 }

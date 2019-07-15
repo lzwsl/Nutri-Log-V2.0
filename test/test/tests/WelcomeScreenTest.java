@@ -1,5 +1,6 @@
 package tests;
 
+import model.Food;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import ui.EatMore;
@@ -8,9 +9,10 @@ import user.CalCalc;
 import user.CalTotal;
 import user.SetCalQuota;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class WelcomeScreenTest {
+public class WelcomeScreenTest implements Serializable {
 
     private WelcomeScreen ws;
     private CalCalc cc;
@@ -18,7 +20,7 @@ public class WelcomeScreenTest {
     private EatMore em;
     private SetCalQuota scq;
 
-    private ArrayList<Integer> list;
+    private ArrayList<Food> list;
 
     @BeforeEach
     public void beforeEachTest() {
@@ -27,37 +29,50 @@ public class WelcomeScreenTest {
         ct = new CalTotal();
         em = new EatMore();
         scq = new SetCalQuota();
-        list = new ArrayList<Integer>();
+        list = new ArrayList<Food>();
     }
 
     @Test
     public void itemsAddingtoListtest() {
-        ct.totalCalories(200, list);
-        list.add(450);
-        list.add(90);
-        list.add(200);
+        Food a = new Food("a", 450);
+        Food b = new Food("b", 90);
+        Food c = new Food("c", 200);
+        Food d = new Food("add", 200);
+        ct.totalCalories(d, list);
+        list.add(a);
+        list.add(b);
+        list.add(c);
         for (int i = 0; i <= 3; i++){
-            Integer a = list.get(i);
-            System.out.println(a);
+            Food e = list.get(i);
+            System.out.println(e);
         }
     }
 
     @Test
     public void sumOfListtest() {
-        ct.totalCalories(200, list);
-        list.add(200);
-        list.add(300);
-        list.add(500);
-        list.add(320);
+        Food a = new Food("a", 200);
+        Food b = new Food("b", 300);
+        Food c = new Food("c", 500);
+        Food d = new Food("d", 320);
+        Food e = new Food("add",200);
+        ct.totalCalories(e, list);
+        list.add(a);
+        list.add(b);
+        list.add(c);
+        list.add(d);
         System.out.println((1520 == ct.getCurrentCalories()));
     }
 
     @Test
     public void itemsAddNegtoListtest() {
-        list.add(100);
-        list.add(20);
-        list.add(450);
-        ct.totalCalories(-200, list);
+        Food a = new Food("a", 100);
+        Food b = new Food("b", 20);
+        Food c = new Food("c", 450);
+        Food d = new Food("minus",-200);
+        list.add(a);
+        list.add(b);
+        list.add(c);
+        ct.totalCalories(d, list);
         System.out.println((330 == ct.getCurrentCalories()));
     }
 
