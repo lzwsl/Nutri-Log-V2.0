@@ -1,17 +1,17 @@
 package ui;
 
 import model.Food;
+import model.FoodItem;
 import user.CalCalc;
 import user.CalTotal;
 import user.SetCalQuota;
 
-import java.beans.Transient;
-import java.lang.annotation.Annotation;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class EatMore implements Transient {
-    private Scanner scanner;
+public class EatMore implements Serializable {
+    private transient Scanner scanner;
     private Food foodItem;
 
     //MODIFIES: this, CalTotal, SetCalQuota, ArrayList<Integer>
@@ -27,7 +27,7 @@ public class EatMore implements Transient {
             System.out.println("Are you sure? (yes/no)");
             operation = scanner.nextLine();
             if (operation.equals("yes")) {
-                foodItem = new Food("",0);
+                foodItem = new FoodItem("",0);
                 System.out.println("Please Enter Name of Food Consumed");
                 foodItem.setFoodName(scanner.nextLine());
                 System.out.println("Please Enter Calories Consumed");
@@ -41,15 +41,5 @@ public class EatMore implements Transient {
         } else if (operation.equals("no")) {
             System.out.println("Return to Welcome Screen?");
         }
-    }
-
-    @Override
-    public boolean value() {
-        return false;
-    }
-
-    @Override
-    public Class<? extends Annotation> annotationType() {
-        return null;
     }
 }

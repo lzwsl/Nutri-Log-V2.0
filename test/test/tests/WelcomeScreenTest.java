@@ -1,6 +1,7 @@
 package tests;
 
 import model.Food;
+import model.FoodItem;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import ui.EatMore;
@@ -33,11 +34,11 @@ public class WelcomeScreenTest implements Serializable {
     }
 
     @Test
-    public void itemsAddingtoListtest() {
-        Food a = new Food("a", 450);
-        Food b = new Food("b", 90);
-        Food c = new Food("c", 200);
-        Food d = new Food("add", 200);
+    public void itemsAddingToListTest() {
+        Food a = new FoodItem("a", 450);
+        Food b = new FoodItem("b", 90);
+        Food c = new FoodItem("c", 200);
+        Food d = new FoodItem("add", 200);
         ct.totalCalories(d, list);
         list.add(a);
         list.add(b);
@@ -49,12 +50,12 @@ public class WelcomeScreenTest implements Serializable {
     }
 
     @Test
-    public void sumOfListtest() {
-        Food a = new Food("a", 200);
-        Food b = new Food("b", 300);
-        Food c = new Food("c", 500);
-        Food d = new Food("d", 320);
-        Food e = new Food("add",200);
+    public void sumOfListTest() {
+        Food a = new FoodItem("a", 200);
+        Food b = new FoodItem("b", 300);
+        Food c = new FoodItem("c", 500);
+        Food d = new FoodItem("d", 320);
+        Food e = new FoodItem("add",200);
         ct.totalCalories(e, list);
         list.add(a);
         list.add(b);
@@ -64,27 +65,15 @@ public class WelcomeScreenTest implements Serializable {
     }
 
     @Test
-    public void itemsAddNegtoListtest() {
-        Food a = new Food("a", 100);
-        Food b = new Food("b", 20);
-        Food c = new Food("c", 450);
-        Food d = new Food("minus",-200);
+    public void itemsAddNegToListTest() {
+        Food a = new FoodItem("a", 100);
+        Food b = new FoodItem("b", 20);
+        Food c = new FoodItem("c", 450);
+        Food d = new FoodItem("minus",-200);
         list.add(a);
         list.add(b);
         list.add(c);
         ct.totalCalories(d, list);
         System.out.println((330 == ct.getCurrentCalories()));
     }
-
-//    @Test
-//    public void itemsAddEmptyListtest() {
-//        list.add(350);
-//        System.out.println((350 == ct.getCurrentCalories()));
-//    }
-//
-//    @Test
-//    public void sumOfEmptytest() {
-//        System.out.println((0 == ct.getCurrentCalories()));
-//    }
-
 }

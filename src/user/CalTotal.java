@@ -2,12 +2,10 @@ package user;
 
 import model.Food;
 
-import java.beans.Transient;
-import java.lang.annotation.Annotation;
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class CalTotal implements Transient {
-    private ArrayList<Integer> calHistory;
+public class CalTotal implements Serializable {
     private Integer calorietotal;
 
     //MODIFIES: this, Arraylist<Integer>
@@ -25,15 +23,5 @@ public class CalTotal implements Transient {
     //EFFECTS: get total calories consumed.
     public Integer getCurrentCalories() {
         return calorietotal;
-    }
-
-    @Override
-    public boolean value() {
-        return false;
-    }
-
-    @Override
-    public Class<? extends Annotation> annotationType() {
-        return null;
     }
 }

@@ -1,30 +1,17 @@
 package model;
 
-import java.io.Serializable;
+public interface Food {
+    //MODIFIES: this
+    //EFFECTS: sets the name of the food item
+    void setFoodName(String s);
 
-public class Food implements Serializable {
+    //EFFECTS: gets the name of the food item
+    String getFoodName();
 
-    private String name;
-    private Integer calories;
+    //MODIFIES: this
+    //EFFECTS: sets the calories of the food item
+    void setFoodCalories(Integer i);
 
-    public Food(String name, Integer calories) {
-        this.name = name;
-        this.calories = calories;
-    }
-
-    public void setFoodName(String s) {
-        this.name = s;
-    }
-
-    public String getFoodName() {
-        return this.name;
-    }
-
-    public void setFoodCalories(Integer i) {
-        this.calories = i;
-    }
-
-    public Integer getFoodCalories() {
-        return this.calories;
-    }
+    //EFFECTS: gets the calories of the food item
+    Integer getFoodCalories();
 }
