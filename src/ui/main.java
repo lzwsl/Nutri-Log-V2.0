@@ -9,7 +9,7 @@ public class main {
 
     public static void main(String[] args) {
         System.out.println("Nutri-Log v1.0");
-        SetProfile sp = new SettingProfile();
+        SettingProfile sp = new SettingProfile();
         sp.SetProfile();
         WelcomeScreen menu;
         try {

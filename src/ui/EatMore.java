@@ -1,7 +1,6 @@
 package ui;
 
 import model.Food;
-import model.FoodItem;
 import user.CalCalc;
 import user.CalTotal;
 import user.SetCalQuota;
@@ -27,8 +26,8 @@ public class EatMore implements Serializable {
             System.out.println("Are you sure? (yes/no)");
             operation = scanner.nextLine();
             if (operation.equals("yes")) {
-                foodItem = new FoodItem("",0);
-                System.out.println("Please Enter Name of Food Consumed");
+                foodItem = new Food("",0);
+                System.out.println("Please Enter Name of Item Consumed");
                 foodItem.setFoodName(scanner.nextLine());
                 System.out.println("Please Enter Calories Consumed");
                 foodItem.setFoodCalories(scanner.nextInt());

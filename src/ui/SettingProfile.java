@@ -2,13 +2,12 @@ package ui;
 
 import java.util.Scanner;
 
-public class SettingProfile implements SetProfile {
+public class SettingProfile {
     private Scanner scanner;
     private String input;
 
     //MODIFIES: this
     //EFFECTS: reads user inputted name and returns input name
-    @Override
     public String SetProfile() {
         scanner = new Scanner(System.in);
         System.out.println("Please Enter/Create Profile Name:");
@@ -18,7 +17,6 @@ public class SettingProfile implements SetProfile {
     }
 
     //EFFECTS: returns profile name
-    @Override
     public String getProfile() {
         return input;
     }
