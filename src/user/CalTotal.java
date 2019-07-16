@@ -16,7 +16,7 @@ public class CalTotal implements Serializable {
         a.add(f);
         Integer sum = 0;
         for(Food i: a) {
-            sum = sum + i.getFoodCalories();
+            sum = sum + i.getCalories();
         }
         calorieTotal = sum;
         return sum;

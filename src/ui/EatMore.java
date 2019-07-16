@@ -28,10 +28,10 @@ public class EatMore implements Serializable {
             if (operation.equals("yes")) {
                 foodItem = new Food("",0);
                 System.out.println("Please Enter Name of Item Consumed");
-                foodItem.setFoodName(scanner.nextLine());
+                foodItem.setName(scanner.nextLine());
                 System.out.println("Please Enter Calories Consumed");
-                foodItem.setFoodCalories(scanner.nextInt());
-                System.out.println("You have entered item: " + foodItem.getFoodName() + " with " + foodItem.getFoodCalories() + " calories");
+                foodItem.setCalories(scanner.nextInt());
+                System.out.println("You have entered item: " + foodItem.getName() + " with " + foodItem.getCalories() + " calories");
                 operation = scanner.nextLine();
                 caloricCalc.ableToEat(foodItem, c, s, a);
             } else if (operation.equals("no")) {

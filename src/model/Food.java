@@ -17,26 +17,26 @@ public class Food implements Serializable, Item, Calories {
     //MODIFIES: this
     //EFFECTS: sets the name of the food item
     @Override
-    public void setFoodName(String s) {
+    public void setName(String s) {
         this.name = s;
     }
 
     //EFFECTS: gets the name of the food item
     @Override
-    public String getFoodName() {
+    public String getName() {
         return this.name;
     }
 
     //MODIFIES: this
     //EFFECTS: sets the calories of the food item
     @Override
-    public void setFoodCalories(Integer i) {
+    public void setCalories(Integer i) {
         this.calories = i;
     }
 
     //EFFECTS: gets the calories of the food item
     @Override
-    public Integer getFoodCalories() {
+    public Integer getCalories() {
         return this.calories;
     }
 }
