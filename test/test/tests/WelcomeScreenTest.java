@@ -1,5 +1,6 @@
 package tests;
 
+import model.Consumable;
 import model.Food;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -20,7 +21,7 @@ public class WelcomeScreenTest implements Serializable {
     private EatMore em;
     private SetCalQuota scq;
 
-    private ArrayList<Food> list;
+    private ArrayList<Consumable> list;
 
     @BeforeEach
     public void beforeEachTest() {
@@ -29,7 +30,7 @@ public class WelcomeScreenTest implements Serializable {
         ct = new CalTotal();
         em = new EatMore();
         scq = new SetCalQuota();
-        list = new ArrayList<Food>();
+        list = new ArrayList<Consumable>();
     }
 
     @Test
@@ -43,7 +44,7 @@ public class WelcomeScreenTest implements Serializable {
         list.add(b);
         list.add(c);
         for (int i = 0; i <= 3; i++){
-            Food e = list.get(i);
+            Consumable e = list.get(i);
             System.out.println(e);
         }
     }

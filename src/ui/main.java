@@ -1,5 +1,7 @@
 package ui;
 
+import exceptions.InvalidConsumableType;
+
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.ObjectInputStream;
@@ -7,7 +9,7 @@ import java.io.ObjectOutputStream;
 
 public class main {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws InvalidConsumableType {
         System.out.println("Nutri-Log v1.0");
         SettingProfile sp = new SettingProfile();
         sp.SetProfile();

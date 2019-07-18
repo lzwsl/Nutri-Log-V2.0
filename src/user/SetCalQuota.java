@@ -14,8 +14,12 @@ public class SetCalQuota implements Serializable {
     public void CalQuota() {
         CalInput = new Scanner(System.in);
         System.out.println("Please set your caloric quota:");
-        caloriequota = CalInput.nextInt();
-        calquote = caloriequota;
+        try { caloriequota = CalInput.nextInt();
+            calquote = caloriequota;}
+        catch(Exception exp) {
+            System.out.println("Invalid Entry, Try Again");
+            CalQuota();
+        }
         System.out.println("You have entered "+caloriequota+" calories");
     }
 
@@ -29,13 +33,17 @@ public class SetCalQuota implements Serializable {
     public void editCalorieQuota() {
         CalInput = new Scanner(System.in);
         System.out.println("Do you want to edit your quota value? (yes/no)");
-        quotaEdit = CalInput.nextLine();
-        if (quotaEdit.equals("yes")) {
-            System.out.println("Please enter your new calorie quota:");
-            calquote = CalInput.nextInt();
-            System.out.println("Your new calorie quota is: "+calquote);
+        try {
+            quotaEdit = CalInput.nextLine();
+            if (quotaEdit.equals("yes")) {
+                System.out.println("Please enter your new calorie quota:");
+                calquote = CalInput.nextInt();
+                System.out.println("Your new calorie quota is: " + calquote);
+            } else
+                System.out.println("Your calorie quota is unchanged");
+        } catch (Exception exp) {
+            System.out.println("Invalid Entry, Try Again");
+            editCalorieQuota();
         }
-        else
-        System.out.println("Your calorie quota is unchanged");
     }
 }

@@ -1,6 +1,6 @@
 package user;
 
-import model.Food;
+import model.Consumable;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -12,10 +12,10 @@ public class CalTotal implements Serializable {
 
     //MODIFIES: this, Arraylist<Integer>
     //EFFECTS: calculates total calories consumed.
-    public Integer totalCalories(Food f, ArrayList<Food> a) {
+    public Integer totalCalories(Consumable f, ArrayList<Consumable> a) {
         a.add(f);
         Integer sum = 0;
-        for(Food i: a) {
+        for(Consumable i: a) {
             sum = sum + i.getCalories();
         }
         calorieTotal = sum;
@@ -29,7 +29,7 @@ public class CalTotal implements Serializable {
 
     //MODIFIES: this
     //EFFECTS: clears total calorie history if user decides
-    public ArrayList<Food> clearCurrentCalories(ArrayList<Food> a) {
+    public ArrayList<Consumable> clearCurrentCalories(ArrayList<Consumable> a) {
         System.out.println("Would You Like to Clear Current Calories? (yes/no)");
         scanner = new Scanner(System.in);
         if (scanner.nextLine().equals("yes")) {

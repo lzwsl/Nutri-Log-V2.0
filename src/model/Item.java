@@ -2,9 +2,9 @@ package model;
 
 public interface Item {
     //MODIFIES: this
-    //EFFECTS: sets the name of the food item
+    //EFFECTS: sets the name of the item
     void setName(String s);
 
-    //EFFECTS: gets the name of the food item
+    //EFFECTS: gets the name of the item
     String getName();
 }
