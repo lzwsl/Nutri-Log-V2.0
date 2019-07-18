@@ -11,6 +11,7 @@ public class main {
 
     public static void main(String[] args) throws InvalidConsumableType {
         System.out.println("Nutri-Log v1.0");
+        System.out.println("");
         SettingProfile sp = new SettingProfile();
         sp.SetProfile();
         WelcomeScreen menu;
@@ -22,6 +23,10 @@ public class main {
         catch(Exception exc) {
             menu = new WelcomeScreen();
             exc.printStackTrace();
+        }
+        finally {
+            System.out.println("");
+            System.out.println("Profile Loaded/Created Successfully");
         }
         menu.run();
         try {

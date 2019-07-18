@@ -76,4 +76,6 @@ public class WelcomeScreenTest implements Serializable {
         ct.totalCalories(d, list);
         System.out.println((330 == ct.getCurrentCalories()));
     }
+
+    
 }
