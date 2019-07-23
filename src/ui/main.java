@@ -22,7 +22,7 @@ public class main {
         }
         catch(Exception exc) {
             menu = new WelcomeScreen();
-            exc.printStackTrace();
+//            exc.printStackTrace();
         }
         finally {
             System.out.println("");
@@ -35,7 +35,8 @@ public class main {
             save.writeObject(menu);
         }
         catch(Exception exc) {
-            exc.printStackTrace();
+//            exc.printStackTrace();
         }
     }
 }
+

@@ -40,7 +40,6 @@ public class EatMore implements Serializable {
                             System.out.println("Please Enter Calories Consumed");
                             consumableItem.setCalories(scanner.nextInt());
                             System.out.println("You have entered item: " + consumableItem.getName() + " with " + consumableItem.getCalories() + " calories");
-//                        operation = scanner.nextLine();
                             caloricCalc.ableToEat(consumableItem, c, s, a);
                         }
                         if (operation.equals("supplement")) {
@@ -60,20 +59,6 @@ public class EatMore implements Serializable {
                 } catch (InvalidConsumableType ict) {
                     System.out.println("Invalid Entry, Try Again.");
                 }
-
-//                consumableItem = new Food("",0);
-//                System.out.println("Please Enter Name of Item Consumed");
-//                consumableItem.setName(scanner.nextLine());
-//                System.out.println("Please Enter Calories Consumed");
-//                consumableItem.setCalories(scanner.nextInt());
-//                System.out.println("You have entered item: " + consumableItem.getName() + " with " + consumableItem.getCalories() + " calories");
-//                operation = scanner.nextLine();
-//                caloricCalc.ableToEat(consumableItem, c, s, a);
-//            } else if (operation.equals("no")) {
-//                System.out.println("Return to Welcome Screen?");
-////            }
-//        } else if (operation.equals("no")) {
-//            System.out.println("Return to Welcome Screen?");
             }
         } catch (Exception exp) {
             System.out.println("Invalid Entry, Try Again");

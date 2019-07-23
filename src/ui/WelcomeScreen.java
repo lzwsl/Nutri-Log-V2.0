@@ -1,7 +1,6 @@
 package ui;
 
 import exceptions.InvalidConsumableType;
-import model.AllItems;
 import model.Consumable;
 import user.CalTotal;
 import user.SetCalQuota;

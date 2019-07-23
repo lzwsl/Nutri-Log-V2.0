@@ -1,4 +1,6 @@
-package model;
+package ui;
+
+import model.Consumable;
 
 import java.io.Serializable;
 import java.util.ArrayList;
