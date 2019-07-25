@@ -19,7 +19,7 @@ public class EatMore implements Serializable {
     //MODIFIES: this, CalTotal, SetCalQuota, ArrayList<Integer>
     //EFFECTS: questions user and confirms calorie consumption, takes in
     //         user input and forwards to calorie calculations.
-    public void EatMore(CalTotal c, SetCalQuota s, ArrayList<Consumable> a) throws InvalidConsumableType {
+    public void eatMore(CalTotal c, SetCalQuota s, ArrayList<Consumable> a) throws InvalidConsumableType {
         CalCalc caloricCalc = new CalCalc();
         scanner = new Scanner(System.in);
         String operation;
@@ -62,7 +62,7 @@ public class EatMore implements Serializable {
             }
         } catch (Exception exp) {
             System.out.println("Invalid Entry, Try Again");
-            EatMore(c, s, a);
+            eatMore(c, s, a);
         }
     }
 }

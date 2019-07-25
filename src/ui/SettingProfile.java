@@ -8,7 +8,7 @@ public class SettingProfile {
 
     //MODIFIES: this
     //EFFECTS: reads user inputted name and returns input name
-    public String SetProfile() {
+    public String setProfile() {
         scanner = new Scanner(System.in);
         System.out.println("Please Enter/Create Profile Name:");
         input = scanner.nextLine();

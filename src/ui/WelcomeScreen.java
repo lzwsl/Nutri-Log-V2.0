@@ -19,11 +19,11 @@ public class WelcomeScreen implements Serializable{
     private CalTotal totaCal;
     private AllItems everyItem;
 
-    //MODIFIES: this, SetCalQuota, EatMore, CalTotal, ArrayList<Integer>
+    //MODIFIES: this, SetCalQuota, eatMore, CalTotal, ArrayList<Integer>
     //EFFECTS: interface for user to navigate application
     public WelcomeScreen() {
         settingQuota = new SetCalQuota();
-        settingQuota.CalQuota();
+        settingQuota.calQuota();
         moreEating = new EatMore();
         totaCal = new CalTotal();
         calHistory = new ArrayList<>();
@@ -47,25 +47,20 @@ public class WelcomeScreen implements Serializable{
             if (option.equals("1")) {
                 System.out.println("Your Set Quota is: " + settingQuota.getCalorieQuota());
                 settingQuota.editCalorieQuota();
-            }
-            else if (option.equals("2")) {
+            } else if (option.equals("2")) {
                 Food f;
-                moreEating.EatMore(totaCal, settingQuota, calHistory);
-            }
-            else if (option.equals("3")) {
+                moreEating.eatMore(totaCal, settingQuota, calHistory);
+            } else if (option.equals("3")) {
                 System.out.println("Your Current Calories Consumed: " + totaCal.getCurrentCalories());
                 totaCal.clearCurrentCalories(calHistory);
-            }
-            else if (option.equals("4")) {
+            } else if (option.equals("4")) {
                 System.out.println("Your Most Recently Consumed Items:");
-                everyItem.AllItems(calHistory);
-            }
-            else if (option.equals("0")) {
+                everyItem.allItems(calHistory);
+            } else if (option.equals("0")) {
                 i = 0;
-            }
-            else
+            } else {
                 System.out.println("Invalid Entry, Try Again.");
-
+            }
         }
     }
 }

@@ -15,7 +15,7 @@ public class CalTotal implements Serializable {
     public Integer totalCalories(Consumable f, ArrayList<Consumable> a) {
         a.add(f);
         Integer sum = 0;
-        for(Consumable i: a) {
+        for (Consumable i: a) {
             sum = sum + i.getCalories();
         }
         calorieTotal = sum;
@@ -35,10 +35,9 @@ public class CalTotal implements Serializable {
         if (scanner.nextLine().equals("yes")) {
             a.clear();
             calorieTotal = 0;
-            Integer retval = a.size();
-            System.out.println("Calorie History is Cleared, Set To "+retval+" Calories");
-        }
-        else {
+            Integer retVal = a.size();
+            System.out.println("Calorie History is Cleared, Set To " + retVal + " Calories");
+        } else {
             return a;
         }
         return a;
