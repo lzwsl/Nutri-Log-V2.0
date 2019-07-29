@@ -10,6 +10,7 @@ public class LoadSaveProfile {
     private static SettingProfile sp = new SettingProfile();
     private static WelcomeScreen menu;
 
+    //EFFECTS: Loads/Creates user profile
     public static WelcomeScreen loadingProfile() {
         sp.setProfile();
         try {
@@ -25,6 +26,7 @@ public class LoadSaveProfile {
         return menu;
     }
 
+    //EFFECTS: saves user profile state into file
     public static WelcomeScreen savingProfile() {
         try {
             FileOutputStream saveFile = new FileOutputStream(sp.getProfile() + "UserProfile");
