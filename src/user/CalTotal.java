@@ -42,4 +42,6 @@ public class CalTotal implements Serializable {
         }
         return a;
     }
+
+
 }

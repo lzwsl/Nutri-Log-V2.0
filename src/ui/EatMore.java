@@ -66,7 +66,6 @@ public class EatMore implements Serializable {
         consumableItem.setCalories(scanner.nextInt());
         System.out.println("You have entered item: " + consumableItem.getName()
                 + " with " + consumableItem.getCalories() + " calories");
-        consumableItem.addFoodGroup();
     }
 
     public void supplementItemEnter() {
@@ -74,7 +73,6 @@ public class EatMore implements Serializable {
         System.out.println("Please Enter Name of Item Consumed");
         consumableItem.setName(scanner.nextLine());
         System.out.println("You have entered item: " + consumableItem.getName());
-        consumableItem.addFoodGroup();
     }
 }
 
