@@ -4,7 +4,6 @@ import exceptions.InvalidConsumableType;
 import model.Consumable;
 import user.CalTotal;
 import user.SetCalQuota;
-import model.Food;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -42,7 +41,6 @@ public class WelcomeScreen implements Serializable {
                 System.out.println("Your Set Quota is: " + settingQuota.getCalorieQuota());
                 settingQuota.editCalorieQuota();
             } else if (option.equals("2")) {
-                Food f;
                 moreEating.eatMore(totaCal, settingQuota, calHistory);
             } else if (option.equals("3")) {
                 System.out.println("Your Current Calories Consumed: " + totaCal.getCurrentCalories());

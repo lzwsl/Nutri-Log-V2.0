@@ -34,19 +34,11 @@ public class EatMore implements Serializable {
                         System.out.println("Please Specify Consumable Type [food/supplement]");
                         operation = scanner.nextLine();
                         if (operation.equals("food")) {
-                            consumableItem = new Food("", 0);
-                            System.out.println("Please Enter Name of Item Consumed");
-                            consumableItem.setName(scanner.nextLine());
-                            System.out.println("Please Enter Calories Consumed");
-                            consumableItem.setCalories(scanner.nextInt());
-                            System.out.println("You have entered item: " + consumableItem.getName() + " with " + consumableItem.getCalories() + " calories");
+                            foodItemEnter();
                             caloricCalc.ableToEat(consumableItem, c, s, a);
                         }
                         if (operation.equals("supplement")) {
-                            consumableItem = new Supplements("", 0);
-                            System.out.println("Please Enter Name of Item Consumed");
-                            consumableItem.setName(scanner.nextLine());
-                            System.out.println("You have entered item: " + consumableItem.getName());
+                            supplementItemEnter();
                             caloricCalc.ableToEat(consumableItem, c, s, a);
                         }
                     } else {
@@ -65,4 +57,52 @@ public class EatMore implements Serializable {
             eatMore(c, s, a);
         }
     }
+
+    public void foodItemEnter() {
+        consumableItem = new Food("", 0);
+        System.out.println("Please Enter Name of Item Consumed");
+        consumableItem.setName(scanner.nextLine());
+        System.out.println("Please Enter Calories Consumed");
+        consumableItem.setCalories(scanner.nextInt());
+        System.out.println("You have entered item: " + consumableItem.getName()
+                + " with " + consumableItem.getCalories() + " calories");
+        consumableItem.addFoodGroup();
+    }
+
+    public void supplementItemEnter() {
+        consumableItem = new Supplements("", 0);
+        System.out.println("Please Enter Name of Item Consumed");
+        consumableItem.setName(scanner.nextLine());
+        System.out.println("You have entered item: " + consumableItem.getName());
+        consumableItem.addFoodGroup();
+    }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//ORIGINAL FOOD CODE:
+//                            consumableItem = new Food("", 0);
+//                            System.out.println("Please Enter Name of Item Consumed");
+//                            consumableItem.setName(scanner.nextLine());
+//                            System.out.println("Please Enter Calories Consumed");
+//                            consumableItem.setCalories(scanner.nextInt());
+//                            System.out.println("You have entered item: " + consumableItem.getName()
+//                            + " with " + consumableItem.getCalories() + " calories");
+
+//ORIGINAL SUPPLEMENT CODE:
+//                            consumableItem = new Supplements("", 0);
+//                            System.out.println("Please Enter Name of Item Consumed");
+//                            consumableItem.setName(scanner.nextLine());
+//                            System.out.println("You have entered item: " + consumableItem.getName());
