@@ -47,7 +47,8 @@ public class WelcomeScreen implements Serializable {
                 totaCal.clearCurrentCalories(calHistory);
             } else if (option.equals("4")) {
                 System.out.println("Your Most Recently Consumed Items:");
-                everyItem.allItems(calHistory);
+                totaCal.getConsumableFoods();
+//                everyItem.allItems(calHistory);
             } else if (option.equals("0")) {
                 i = 0;
             } else {

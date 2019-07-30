@@ -34,7 +34,7 @@ public class EatMore implements Serializable {
                         System.out.println("Please Specify Consumable Type [food/supplement]");
                         operation = scanner.nextLine();
                         if (operation.equals("food")) {
-                            foodItemEnter();
+                            foodItemEnter(c);
                             caloricCalc.ableToEat(consumableItem, c, s, a);
                         }
                         if (operation.equals("supplement")) {
@@ -58,7 +58,7 @@ public class EatMore implements Serializable {
         }
     }
 
-    public void foodItemEnter() {
+    public void foodItemEnter(CalTotal c) {
         consumableItem = new Food("", 0);
         System.out.println("Please Enter Name of Item Consumed");
         consumableItem.setName(scanner.nextLine());
@@ -66,6 +66,7 @@ public class EatMore implements Serializable {
         consumableItem.setCalories(scanner.nextInt());
         System.out.println("You have entered item: " + consumableItem.getName()
                 + " with " + consumableItem.getCalories() + " calories");
+        c.addConsumable(consumableItem);
     }
 
     public void supplementItemEnter() {
@@ -75,19 +76,6 @@ public class EatMore implements Serializable {
         System.out.println("You have entered item: " + consumableItem.getName());
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 //ORIGINAL FOOD CODE:

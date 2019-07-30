@@ -3,12 +3,12 @@ package user;
 import model.Consumable;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.Scanner;
+import java.util.*;
 
 public class CalTotal implements Serializable {
     private Integer calorieTotal;
     private transient Scanner scanner;
+    private List<Consumable> consumables = new ArrayList<>();
 
     //MODIFIES: this, Arraylist<Integer>
     //EFFECTS: calculates total calories consumed.
@@ -43,5 +43,35 @@ public class CalTotal implements Serializable {
         return a;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        CalTotal calTotal = (CalTotal) o;
+        return calorieTotal.equals(calTotal.calorieTotal)
+                && scanner.equals(calTotal.scanner)
+                && consumables.equals(calTotal.consumables);
+    }
 
+    @Override
+    public int hashCode() {
+        return Objects.hash(calorieTotal, scanner, consumables);
+    }
+
+    public void addConsumable(Consumable c) {
+        if (!consumables.contains(c)) {
+            consumables.add(c);
+            c.addToCalTotal(this);
+        }
+    }
+
+    public void getConsumableFoods() {
+        for (Consumable f: this.consumables) {
+            System.out.println(f.getName());
+        }
+    }
 }

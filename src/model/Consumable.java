@@ -1,11 +1,14 @@
 package model;
 
+import user.CalTotal;
+
 import java.io.Serializable;
 
 public abstract class Consumable implements Serializable, Item, Calories {
 
     protected String name;
     protected Integer calories;
+    private CalTotal calTotals;
 
     //MODIFIES: this
     //EFFECTS: creates new consumable with name and calories
@@ -32,5 +35,12 @@ public abstract class Consumable implements Serializable, Item, Calories {
     //EFFECTS: gets the calories of the consumable item
     public Integer getCalories() {
         return this.calories;
+    }
+
+    public void addToCalTotal(CalTotal c) {
+        if (calTotals != c) {
+            calTotals = c;
+            calTotals.addConsumable(this);
+        }
     }
 }
