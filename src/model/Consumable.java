@@ -1,6 +1,6 @@
 package model;
 
-import user.CalTotal;
+import ui.CalTotal;
 
 import java.io.Serializable;
 

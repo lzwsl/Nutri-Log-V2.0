@@ -4,9 +4,6 @@ import exceptions.InvalidConsumableType;
 import model.Consumable;
 import model.Food;
 import model.Supplements;
-import user.CalCalc;
-import user.CalTotal;
-import user.SetCalQuota;
 
 import java.io.Serializable;
 import java.util.ArrayList;

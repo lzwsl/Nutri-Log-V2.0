@@ -1,7 +1,6 @@
-package user;
+package ui;
 
 import model.Consumable;
-import ui.AllItems;
 
 import java.io.Serializable;
 import java.util.*;

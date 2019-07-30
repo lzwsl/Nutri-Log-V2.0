@@ -6,9 +6,9 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import ui.EatMore;
 import ui.WelcomeScreen;
-import user.CalCalc;
-import user.CalTotal;
-import user.SetCalQuota;
+import ui.CalCalc;
+import ui.CalTotal;
+import ui.SetCalQuota;
 
 import java.io.Serializable;
 import java.util.ArrayList;
