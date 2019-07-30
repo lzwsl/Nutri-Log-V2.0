@@ -1,6 +1,7 @@
 package user;
 
 import model.Consumable;
+import ui.AllItems;
 
 import java.io.Serializable;
 import java.util.*;
@@ -29,7 +30,8 @@ public class CalTotal implements Serializable {
 
     //MODIFIES: this
     //EFFECTS: clears total calorie history if user decides
-    public ArrayList<Consumable> clearCurrentCalories(ArrayList<Consumable> a) {
+    public ArrayList<Consumable> clearCurrentCalories(ArrayList<Consumable> a, CalTotal totaCal) {
+        System.out.println("Your Current Calories Consumed: " + totaCal.getCurrentCalories());
         System.out.println("Would You Like to Clear Current Calories? (yes/no)");
         scanner = new Scanner(System.in);
         if (scanner.nextLine().equals("yes")) {
@@ -69,9 +71,18 @@ public class CalTotal implements Serializable {
         }
     }
 
-    public void getConsumableFoods() {
+    public void getConsumableFoods(AllItems a, ArrayList al) {
+        System.out.println("Your Most Recently Consumed Food Items:");
         for (Consumable f: this.consumables) {
             System.out.println(f.getName());
+        }
+        System.out.println("");
+        System.out.println("Would You Like to Expand Details & Include Supplements? (yes/no)");
+        scanner = new Scanner(System.in);
+        String choice = scanner.nextLine();
+        System.out.println("");
+        if (choice.equals("yes")) {
+            a.allItems(al);
         }
     }
 }

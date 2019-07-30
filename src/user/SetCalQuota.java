@@ -31,7 +31,8 @@ public class SetCalQuota implements Serializable {
 
     //MODIFIES: this
     //EFFECTS: edits the calorie quota if user desires.
-    public void editCalorieQuota() {
+    public void editCalorieQuota(SetCalQuota settingQuota) {
+        System.out.println("Your Set Quota is: " + settingQuota.getCalorieQuota());
         calInput = new Scanner(System.in);
         System.out.println("Do you want to edit your quota value? (yes/no)");
         try {
@@ -45,7 +46,7 @@ public class SetCalQuota implements Serializable {
             }
         } catch (Exception exp) {
             System.out.println("Invalid Entry, Try Again");
-            editCalorieQuota();
+            editCalorieQuota(settingQuota);
         }
     }
 }
