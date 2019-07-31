@@ -26,25 +26,7 @@ public class EatMore implements Serializable {
             if (operation.equals("yes")) {
                 System.out.println("Are you sure? (yes/no)");
                 try {
-                    operation = scanner.nextLine();
-                    if (operation.equals("yes")) {
-                        System.out.println("Please Specify Consumable Type [food/supplement]");
-                        operation = scanner.nextLine();
-                        if (operation.equals("food")) {
-                            foodItemEnter(c);
-                            caloricCalc.ableToEat(consumableItem, c, s, a);
-                        }
-                        if (operation.equals("supplement")) {
-                            supplementItemEnter();
-                            caloricCalc.ableToEat(consumableItem, c, s, a);
-                        }
-                    } else {
-                        if (operation.equals("no")) {
-                            System.out.println("Returning to Welcome Screen?");
-                        } else {
-                            throw new InvalidConsumableType();
-                        }
-                    }
+                    yesEat(c, s, a, caloricCalc);
                 } catch (InvalidConsumableType ict) {
                     System.out.println("Invalid Entry, Try Again.");
                 }
@@ -52,6 +34,34 @@ public class EatMore implements Serializable {
         } catch (Exception exp) {
             System.out.println("Invalid Entry, Try Again");
             eatMore(c, s, a);
+        }
+    }
+
+    private void yesEat(CalTotal c, SetCalQuota s, ArrayList<Consumable> a, CalCalc cc) throws InvalidConsumableType {
+        String operation;
+        operation = scanner.nextLine();
+        if (operation.equals("yes")) {
+            yesCanEat(c, s, a, cc);
+        } else {
+            if (operation.equals("no")) {
+                System.out.println("Returning to Welcome Screen?");
+            } else {
+                throw new InvalidConsumableType();
+            }
+        }
+    }
+
+    private void yesCanEat(CalTotal c, SetCalQuota s, ArrayList<Consumable> a, CalCalc caloricCalc) {
+        String operation;
+        System.out.println("Please Specify Consumable Type [food/supplement]");
+        operation = scanner.nextLine();
+        if (operation.equals("food")) {
+            foodItemEnter(c);
+            caloricCalc.ableToEat(consumableItem, c, s, a);
+        }
+        if (operation.equals("supplement")) {
+            supplementItemEnter();
+            caloricCalc.ableToEat(consumableItem, c, s, a);
         }
     }
 
