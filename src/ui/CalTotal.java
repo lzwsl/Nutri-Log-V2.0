@@ -70,6 +70,7 @@ public class CalTotal implements Serializable {
         }
     }
 
+    //EFFECTS: gets consumable foods
     public void getConsumableFoods(AllItems a, ArrayList al) {
         System.out.println("Your Most Recently Consumed Food Items:");
         for (Consumable f: this.consumables) {

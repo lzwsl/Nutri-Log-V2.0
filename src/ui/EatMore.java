@@ -26,7 +26,7 @@ public class EatMore implements Serializable {
             if (operation.equals("yes")) {
                 System.out.println("Are you sure? (yes/no)");
                 try {
-                    yesEat(c, s, a, caloricCalc);
+                    toEat(c, s, a, caloricCalc);
                 } catch (InvalidConsumableType ict) {
                     System.out.println("Invalid Entry, Try Again.");
                 }
@@ -37,7 +37,8 @@ public class EatMore implements Serializable {
         }
     }
 
-    private void yesEat(CalTotal c, SetCalQuota s, ArrayList<Consumable> a, CalCalc cc) throws InvalidConsumableType {
+    //EFFECTS: processes user input if they can or cannot eat
+    private void toEat(CalTotal c, SetCalQuota s, ArrayList<Consumable> a, CalCalc cc) throws InvalidConsumableType {
         String operation;
         operation = scanner.nextLine();
         if (operation.equals("yes")) {
@@ -51,6 +52,7 @@ public class EatMore implements Serializable {
         }
     }
 
+    //EFFECTS: takes input for what user ate
     private void yesCanEat(CalTotal c, SetCalQuota s, ArrayList<Consumable> a, CalCalc caloricCalc) {
         String operation;
         System.out.println("Please Specify Consumable Type [food/supplement]");
@@ -65,6 +67,7 @@ public class EatMore implements Serializable {
         }
     }
 
+    //EFFECTS: processes eaten food
     public void foodItemEnter(CalTotal c) {
         consumableItem = new Food("", 0);
         System.out.println("Please Enter Name of Item Consumed");
@@ -76,6 +79,7 @@ public class EatMore implements Serializable {
         c.addConsumable(consumableItem);
     }
 
+    //EFFECTS: processes supplement eaten
     public void supplementItemEnter() {
         consumableItem = new Supplements("", 0);
         System.out.println("Please Enter Name of Item Consumed");

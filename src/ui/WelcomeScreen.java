@@ -20,6 +20,7 @@ public class WelcomeScreen implements Serializable {
 
     private HashMap<String, String> optionPrompt = new HashMap<>();
 
+    //EFFECTS: HashMap of printouts
     private void promptPrintout() {
         optionPrompt.put("linebreak", "");
         optionPrompt.put("pc", "Please choose from the following;");
@@ -31,6 +32,7 @@ public class WelcomeScreen implements Serializable {
         mainMenuSelections();
     }
 
+    //EFFECTS: main menu
     private void mainMenuSelections() {
         System.out.println(optionPrompt.get("linebreak"));
         System.out.println(optionPrompt.get("pc"));
