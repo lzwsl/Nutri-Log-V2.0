@@ -2,7 +2,7 @@ package ui;
 
 import java.util.Scanner;
 
-public class SettingProfile {
+public class SetLoadProfile {
     private Scanner scanner;
     private String input;
 

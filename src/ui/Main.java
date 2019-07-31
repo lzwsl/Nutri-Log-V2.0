@@ -26,7 +26,7 @@ public class Main {
 
 
 //ORIGINAL LOAD CODE:
-//        SettingProfile sp = new SettingProfile();
+//        SetLoadProfile sp = new SetLoadProfile();
 //        sp.setProfile();
 //        WelcomeScreen menu = LoadSaveProfile.loadingProfile();
 //        try {

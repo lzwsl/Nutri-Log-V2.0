@@ -7,7 +7,7 @@ import java.io.ObjectOutputStream;
 
 public class LoadSaveProfile {
 
-    private static SettingProfile sp = new SettingProfile();
+    private static SetLoadProfile sp = new SetLoadProfile();
     private static WelcomeScreen menu;
 
     //EFFECTS: Loads/Creates user profile
