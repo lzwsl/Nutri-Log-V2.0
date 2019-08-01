@@ -1,6 +1,6 @@
 package ui;
 
-import exceptions.InvalidConsumableType;
+import main.exceptions.InvalidConsumableType;
 
 public class Main {
 

@@ -1,6 +1,6 @@
 package ui;
 
-import exceptions.InvalidConsumableType;
+import main.exceptions.InvalidConsumableType;
 import model.Consumable;
 
 import java.io.Serializable;
