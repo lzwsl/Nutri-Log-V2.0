@@ -4,32 +4,19 @@ import model.Consumable;
 import model.Food;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import ui.EatMore;
-import ui.WelcomeScreen;
-import ui.CalCalc;
 import ui.CalTotal;
-import ui.SetCalQuota;
 
 import java.io.Serializable;
 import java.util.ArrayList;
 
-public class WelcomeScreenTest implements Serializable {
+public class CalorieCalculationTest implements Serializable {
 
-    private WelcomeScreen ws;
-    private CalCalc cc;
     private CalTotal ct;
-    private EatMore em;
-    private SetCalQuota scq;
-
     private ArrayList<Consumable> list;
 
     @BeforeEach
     public void beforeEachTest() {
-        ws = new WelcomeScreen();
-        cc = new CalCalc();
         ct = new CalTotal();
-        em = new EatMore();
-        scq = new SetCalQuota();
         list = new ArrayList<Consumable>();
     }
 

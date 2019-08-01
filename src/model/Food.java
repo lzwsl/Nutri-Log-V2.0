@@ -7,7 +7,7 @@ public class Food extends Consumable {
     }
 
     //MODIFIES: this
-    //EFFECTS: sets the calories of the supplemental item
+    //EFFECTS: sets the calories of the food item
     public void setCalories(Integer i) {
         this.calories = i;
     }

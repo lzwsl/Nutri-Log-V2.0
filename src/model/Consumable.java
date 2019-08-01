@@ -36,11 +36,13 @@ public abstract class Consumable implements Serializable, Item, Calories {
     public Integer getCalories() {
         return this.calories;
     }
-
-    public void addToCalTotal(CalTotal c) {
-        if (calTotals != c) {
-            calTotals = c;
-            calTotals.addConsumable(this);
-        }
-    }
 }
+
+
+//ORIGINAL CODE:
+//    public void addToCalTotal(CalTotal c) {
+//        if (calTotals != c) {
+//            calTotals = c;
+//            calTotals.addConsumable(this);
+//        }
+//    }

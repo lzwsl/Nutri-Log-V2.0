@@ -3,7 +3,7 @@ package model;
 public class Supplements extends Consumable {
 
     public Supplements(String name, Integer calories) {
-        super(name, calories);
+        super(name, 0);
     }
 
     //MODIFIES: this

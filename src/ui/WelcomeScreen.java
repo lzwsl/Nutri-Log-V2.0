@@ -9,8 +9,9 @@ import java.util.HashMap;
 import java.util.Scanner;
 
 public class WelcomeScreen implements Serializable {
-//    private Scanner welcomeScan;
 
+    private transient Scanner welcomeScan = new Scanner(System.in);
+    private HashMap<String, String> optionPrompt = new HashMap<>();
     private ArrayList<Consumable> calHistory;
     private SetCalQuota settingQuota;
     private EatMore moreEating;
@@ -18,12 +19,10 @@ public class WelcomeScreen implements Serializable {
     private AllItems everyItem;
     private String option;
 
-    private HashMap<String, String> optionPrompt = new HashMap<>();
-
     //EFFECTS: HashMap of printouts
     private void promptPrintout() {
         optionPrompt.put("linebreak", "");
-        optionPrompt.put("pc", "Please choose from the following;");
+        optionPrompt.put("pc", "Please choose from the following:");
         optionPrompt.put("1", "(1) View/Edit Calorie Quota");
         optionPrompt.put("2", "(2) Input Items To Be Consumed");
         optionPrompt.put("3", "(3) View/Edit Current Calorie Total");
@@ -57,7 +56,6 @@ public class WelcomeScreen implements Serializable {
 
     //EFFECTS: runs the specified program that user chooses
     public void run() throws InvalidConsumableType {
-        Scanner welcomeScan = new Scanner(System.in);
         for (int i = 1; i != 0; ) {
             promptPrintout();
             option = welcomeScan.nextLine();

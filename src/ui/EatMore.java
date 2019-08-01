@@ -76,7 +76,6 @@ public class EatMore implements Serializable {
         consumableItem.setCalories(scanner.nextInt());
         System.out.println("You have entered item: " + consumableItem.getName()
                 + " with " + consumableItem.getCalories() + " calories");
-        c.addConsumable(consumableItem);
     }
 
     //EFFECTS: processes supplement eaten
@@ -103,3 +102,15 @@ public class EatMore implements Serializable {
 //                            System.out.println("Please Enter Name of Item Consumed");
 //                            consumableItem.setName(scanner.nextLine());
 //                            System.out.println("You have entered item: " + consumableItem.getName());
+
+//    //EFFECTS: processes eaten food
+//    public void foodItemEnter(CalTotal c) {
+//        consumableItem = new Food("", 0);
+//        System.out.println("Please Enter Name of Item Consumed");
+//        consumableItem.setName(scanner.nextLine());
+//        System.out.println("Please Enter Calories Consumed");
+//        consumableItem.setCalories(scanner.nextInt());
+//        System.out.println("You have entered item: " + consumableItem.getName()
+//                + " with " + consumableItem.getCalories() + " calories");
+//        c.addConsumable(consumableItem);
+//    }
