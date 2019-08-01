@@ -27,7 +27,7 @@ public class SupplementsCreationTest {
     public void editCaloriesSupplementOfSupplement() {
         Supplements test1 = new Supplements("vitaminC", 0);
         assertTrue(test1.getName().equals("vitaminC"));
-        assertEquals(test1.getCalories(),0);
+        assertTrue(test1.getCalories().equals(0));
         test1.setCalories(123);
         assertFalse(test1.getCalories().equals(123));
         assertTrue(test1.getCalories().equals(0));
@@ -37,7 +37,7 @@ public class SupplementsCreationTest {
     public void editNameSupplementOfSupplement() {
         Supplements test1 = new Supplements("vitaminC", 0);
         assertTrue(test1.getName().equals("vitaminC"));
-        assertEquals(test1.getCalories(),0);
+        assertTrue(test1.getCalories().equals(0));
         test1.setName("vitaminD");
         assertTrue(test1.getName().equals("vitaminD [supplement]"));
     }
