@@ -17,7 +17,7 @@ public class CalorieCalculationTest implements Serializable {
     @BeforeEach
     public void beforeEachTest() {
         ct = new CalTotal();
-        list = new ArrayList<Consumable>();
+        list = new ArrayList<>();
     }
 
     @Test

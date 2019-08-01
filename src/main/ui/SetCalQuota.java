@@ -5,9 +5,8 @@ import java.util.Scanner;
 
 public class SetCalQuota implements Serializable {
     private transient Scanner calInput;
-    private int calquote;
-    private Integer caloriequota;
-    private String quotaEdit;
+    private int calQuote;
+    private Integer calorieQuota;
 
     //MODIFIES: this
     //EFFECTS: takes in user input and sets the calorie quota.
@@ -15,18 +14,18 @@ public class SetCalQuota implements Serializable {
         calInput = new Scanner(System.in);
         System.out.println("Please set your caloric quota:");
         try {
-            caloriequota = calInput.nextInt();
-            calquote = caloriequota;
+            calorieQuota = calInput.nextInt();
+            calQuote = calorieQuota;
         } catch (Exception exp) {
             System.out.println("Invalid Entry, Try Again");
             calQuota();
         }
-        System.out.println("You have entered " + caloriequota + " calories");
+        System.out.println("You have entered " + calorieQuota + " calories");
     }
 
     //EFFECTS: sets the calorie quota.
     public int getCalorieQuota() {
-        return calquote;
+        return calQuote;
     }
 
     //MODIFIES: this
@@ -36,11 +35,11 @@ public class SetCalQuota implements Serializable {
         calInput = new Scanner(System.in);
         System.out.println("Do you want to edit your quota value? (yes/no)");
         try {
-            quotaEdit = calInput.nextLine();
+            String quotaEdit = calInput.nextLine();
             if (quotaEdit.equals("yes")) {
                 System.out.println("Please enter your new calorie quota:");
-                calquote = calInput.nextInt();
-                System.out.println("Your new calorie quota is: " + calquote);
+                calQuote = calInput.nextInt();
+                System.out.println("Your new calorie quota is: " + calQuote);
             } else {
                 System.out.println("Your calorie quota is unchanged");
             }

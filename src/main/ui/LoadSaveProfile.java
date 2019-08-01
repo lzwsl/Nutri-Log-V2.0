@@ -27,14 +27,15 @@ public class LoadSaveProfile {
     }
 
     //EFFECTS: saves user profile state into file
-    public static WelcomeScreen savingProfile() {
+    public static void savingProfile() {
         try {
             FileOutputStream saveFile = new FileOutputStream(sp.getProfile() + "UserProfile");
             ObjectOutputStream save = new ObjectOutputStream(saveFile);
             save.writeObject(menu);
+            System.out.println("");
+            System.out.println("Nutri-Log, Always With You!");
         } catch (Exception exc) {
-            System.out.println("See You Next Time!");
+            System.out.println("Something Went Wrong!");
         }
-        return menu;
     }
 }

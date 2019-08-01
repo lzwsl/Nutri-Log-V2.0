@@ -1,6 +1,5 @@
 package ui;
 
-import main.exceptions.InvalidConsumableType;
 import model.Consumable;
 
 import java.io.Serializable;
@@ -15,9 +14,8 @@ public class WelcomeScreen implements Serializable {
     private ArrayList<Consumable> calHistory;
     private SetCalQuota settingQuota;
     private EatMore moreEating;
-    private CalTotal totaCal;
+    private CalTotal totalCal;
     private AllItems everyItem;
-    private String option;
 
     //EFFECTS: HashMap of printouts
     private void promptPrintout() {
@@ -49,24 +47,24 @@ public class WelcomeScreen implements Serializable {
         settingQuota = new SetCalQuota();
         settingQuota.calQuota();
         moreEating = new EatMore();
-        totaCal = new CalTotal();
+        totalCal = new CalTotal();
         calHistory = new ArrayList<>();
         everyItem = new AllItems();
     }
 
     //EFFECTS: runs the specified program that user chooses
-    public void run() throws InvalidConsumableType {
+    public void run() {
         for (int i = 1; i != 0; ) {
             promptPrintout();
-            option = welcomeScan.nextLine();
+            String option = welcomeScan.nextLine();
             if (option.equals("1")) {
                 settingQuota.editCalorieQuota(settingQuota);
             } else if (option.equals("2")) {
-                moreEating.eatMore(totaCal, settingQuota, calHistory);
+                moreEating.eatMore(totalCal, settingQuota, calHistory);
             } else if (option.equals("3")) {
-                totaCal.clearCurrentCalories(calHistory, totaCal);
+                totalCal.clearCurrentCalories(calHistory, totalCal);
             } else if (option.equals("4")) {
-                totaCal.getConsumableFoods(everyItem, calHistory);
+                totalCal.getConsumableFoods(everyItem, calHistory);
             } else if (option.equals("0")) {
                 i = 0;
             } else {
@@ -81,10 +79,10 @@ public class WelcomeScreen implements Serializable {
 //        System.out.println("Your Set Quota is: " + settingQuota.getCalorieQuota());
 //        settingQuota.editCalorieQuota();
 //        } else if (option.equals("2")) {
-//        moreEating.eatMore(totaCal, settingQuota, calHistory);
+//        moreEating.eatMore(totalCal, settingQuota, calHistory);
 //        } else if (option.equals("3")) {
-//        System.out.println("Your Current Calories Consumed: " + totaCal.getCurrentCalories());
-//        totaCal.clearCurrentCalories(calHistory, totaCal);
+//        System.out.println("Your Current Calories Consumed: " + totalCal.getCurrentCalories());
+//        totalCal.clearCurrentCalories(calHistory, totalCal);
 //        } else if (option.equals("4")) {
 //        System.out.println("Your Most Recently Consumed Items:");
 //        everyItem.allItems(calHistory);

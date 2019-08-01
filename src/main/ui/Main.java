@@ -1,11 +1,9 @@
 package ui;
 
-import main.exceptions.InvalidConsumableType;
-
 public class Main {
 
-    public static void main(String[] args) throws InvalidConsumableType {
-        System.out.println("Nutri-Log v1.0");
+    public static void main(String[] args) {
+        System.out.println("Nutri-Log v1.1");
         System.out.println("");
         WelcomeScreen menu = LoadSaveProfile.loadingProfile();
         menu.run();
