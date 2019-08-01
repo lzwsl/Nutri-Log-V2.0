@@ -1,6 +1,6 @@
 package ui;
 
-import main.exceptions.InvalidConsumableType;
+import exceptions.InvalidConsumableType;
 import model.Consumable;
 import model.Food;
 import model.Supplements;
@@ -86,6 +86,26 @@ public class EatMore implements Serializable {
         System.out.println("You have entered item: " + consumableItem.getName());
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 //ORIGINAL FOOD CODE:

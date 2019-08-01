@@ -9,7 +9,7 @@ import java.util.Scanner;
 
 public class WelcomeScreen implements Serializable {
 
-    private transient Scanner welcomeScan = new Scanner(System.in);
+    private transient Scanner welcomeScan;
     private HashMap<String, String> optionPrompt = new HashMap<>();
     private ArrayList<Consumable> calHistory;
     private SetCalQuota settingQuota;
@@ -56,6 +56,7 @@ public class WelcomeScreen implements Serializable {
     public void run() {
         for (int i = 1; i != 0; ) {
             promptPrintout();
+            welcomeScan = new Scanner(System.in);
             String option = welcomeScan.nextLine();
             if (option.equals("1")) {
                 settingQuota.editCalorieQuota(settingQuota);
@@ -73,6 +74,18 @@ public class WelcomeScreen implements Serializable {
         }
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
 
 //ORIGINAL CODE:
 //if (option.equals("1")) {

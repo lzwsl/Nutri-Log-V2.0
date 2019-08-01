@@ -1,6 +1,5 @@
 package ui;
 
-
 import model.Consumable;
 
 import java.io.Serializable;

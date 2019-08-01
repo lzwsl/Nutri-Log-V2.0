@@ -54,6 +54,24 @@ public class CalTotal implements Serializable {
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 //    private List<Consumable> consumables = new ArrayList<>();
 
 
