@@ -1,6 +1,5 @@
 package ui;
 
-import exceptions.InvalidConsumableType;
 import model.Consumable;
 import model.Food;
 import model.Supplements;
@@ -27,7 +26,7 @@ public class EatMore implements Serializable {
                 System.out.println("Are you sure? (yes/no)");
                 try {
                     toEat(c, s, a, caloricCalc);
-                } catch (InvalidConsumableType ict) {
+                } catch (Exception ict) {
                     System.out.println("Invalid Entry, Try Again.");
                 }
             }
@@ -38,7 +37,7 @@ public class EatMore implements Serializable {
     }
 
     //EFFECTS: processes user input if they can or cannot eat
-    private void toEat(CalTotal c, SetCalQuota s, ArrayList<Consumable> a, CalCalc cc) throws InvalidConsumableType {
+    private void toEat(CalTotal c, SetCalQuota s, ArrayList<Consumable> a, CalCalc cc) throws Exception {
         String operation;
         operation = scanner.nextLine();
         if (operation.equals("yes")) {
@@ -47,7 +46,7 @@ public class EatMore implements Serializable {
             if (operation.equals("no")) {
                 System.out.println("Returning to Welcome Screen?");
             } else {
-                throw new InvalidConsumableType();
+                throw new Exception();
             }
         }
     }
