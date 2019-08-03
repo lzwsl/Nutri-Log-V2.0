@@ -5,9 +5,10 @@ import model.Consumable;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Observable;
 import java.util.Scanner;
 
-public class WelcomeScreen implements Serializable {
+public class WelcomeScreen extends Observable implements Serializable {
 
     private transient Scanner welcomeScan;
     private HashMap<String, String> optionPrompt = new HashMap<>();

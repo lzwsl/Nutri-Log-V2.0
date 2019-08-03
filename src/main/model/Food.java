@@ -12,4 +12,11 @@ public class Food extends Consumable {
         this.calories = i;
     }
 
+    @Override
+    public String toString() {
+        return "Food{"
+                + "name='" + name + '\''
+                + ", calories=" + calories
+                + '}';
+    }
 }

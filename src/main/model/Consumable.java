@@ -36,6 +36,8 @@ public abstract class Consumable implements Serializable, Item, Calories {
     public Integer getCalories() {
         return this.calories;
     }
+
+
 }
 
 

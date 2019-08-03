@@ -1,8 +1,16 @@
 package ui;
 
+import java.io.IOException;
+
 public class Main {
 
     public static void main(String[] args) {
+        GetFromOnline g = new GetFromOnline();
+        try {
+            g.initialMessage();
+        } catch (IOException exp) {
+            System.out.println("Oops!");
+        }
         System.out.println("Nutri-Log v1.1");
         System.out.println("");
         WelcomeScreen menu = LoadSaveProfile.loadingProfile();

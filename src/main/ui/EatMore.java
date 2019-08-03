@@ -3,22 +3,27 @@ package ui;
 import model.Consumable;
 import model.Food;
 import model.Supplements;
+import observer.ListAdder;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Observable;
 import java.util.Scanner;
 
-public class EatMore implements Serializable {
+public class EatMore extends Observable implements Serializable {
     private transient Scanner scanner;
     private Consumable consumableItem;
+    private String operation;
+
 
     //MODIFIES: this, CalTotal, SetCalQuota, ArrayList<Integer>
     //EFFECTS: questions user and confirms calorie consumption, takes in
     //         user input and forwards to calorie calculations.
     public void eatMore(CalTotal c, SetCalQuota s, ArrayList<Consumable> a) {
+        checkForObservers();
+        addObserver(new ListAdder());
         CalCalc caloricCalc = new CalCalc();
         scanner = new Scanner(System.in);
-        String operation;
         System.out.println("Can you eat more today? (yes/no)");
         try {
             operation = scanner.nextLine();
@@ -33,6 +38,12 @@ public class EatMore implements Serializable {
         } catch (Exception exp) {
             System.out.println("Invalid Entry, Try Again");
             eatMore(c, s, a);
+        }
+    }
+
+    private void checkForObservers() {
+        if (countObservers() != 0) {
+            deleteObservers();
         }
     }
 
@@ -73,8 +84,10 @@ public class EatMore implements Serializable {
         consumableItem.setName(scanner.nextLine());
         System.out.println("Please Enter Calories Consumed");
         consumableItem.setCalories(scanner.nextInt());
-        System.out.println("You have entered item: " + consumableItem.getName()
-                + " with " + consumableItem.getCalories() + " calories");
+//        System.out.println("You have entered item: " + consumableItem.getName()
+//                + " with " + consumableItem.getCalories() + " calories");
+        setChanged();
+        notifyObservers(consumableItem);
     }
 
     //EFFECTS: processes supplement eaten
@@ -82,7 +95,9 @@ public class EatMore implements Serializable {
         consumableItem = new Supplements("", 0);
         System.out.println("Please Enter Name of Item Consumed");
         consumableItem.setName(scanner.nextLine());
-        System.out.println("You have entered item: " + consumableItem.getName());
+//        System.out.println("You have entered item: " + consumableItem.getName());
+        setChanged();
+        notifyObservers(consumableItem);
     }
 }
 
