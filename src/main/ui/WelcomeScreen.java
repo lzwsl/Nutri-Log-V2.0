@@ -18,28 +18,16 @@ public class WelcomeScreen extends Observable implements Serializable {
     private CalTotal totalCal;
     private AllItems everyItem;
 
-    //EFFECTS: HashMap of printouts
-    private void promptPrintout() {
-        optionPrompt.put("linebreak", "");
-        optionPrompt.put("pc", "Please choose from the following:");
-        optionPrompt.put("1", "(1) View/Edit Calorie Quota");
-        optionPrompt.put("2", "(2) Input Items To Be Consumed");
-        optionPrompt.put("3", "(3) View/Edit Current Calorie Total");
-        optionPrompt.put("4", "(4) View Consumed Food Items");
-        optionPrompt.put("0", "(0) Close Application");
-        mainMenuSelections();
-    }
-
     //EFFECTS: main menu
     private void mainMenuSelections() {
-        System.out.println(optionPrompt.get("linebreak"));
-        System.out.println(optionPrompt.get("pc"));
-        System.out.println(optionPrompt.get("1"));
-        System.out.println(optionPrompt.get("2"));
-        System.out.println(optionPrompt.get("3"));
-        System.out.println(optionPrompt.get("4"));
-        System.out.println(optionPrompt.get("0"));
-        System.out.println(optionPrompt.get("linebreak"));
+        System.out.println(optionPrompt.get(""));
+        System.out.println(optionPrompt.get("Please choose from the following:"));
+        System.out.println(optionPrompt.get("(1) View/Edit Calorie Quota"));
+        System.out.println(optionPrompt.get("(2) Input Items To Be Consumed"));
+        System.out.println(optionPrompt.get("(3) View/Edit Current Calorie Total"));
+        System.out.println(optionPrompt.get("(4) View Consumed Food Items"));
+        System.out.println(optionPrompt.get("(0) Close Application"));
+        System.out.println(optionPrompt.get(""));
     }
 
     //MODIFIES: this, SetCalQuota, eatMore, CalTotal, ArrayList<Integer>
@@ -56,7 +44,7 @@ public class WelcomeScreen extends Observable implements Serializable {
     //EFFECTS: runs the specified program that user chooses
     protected void run() {
         for (int i = 1; i != 0; ) {
-            promptPrintout();
+            mainMenuSelections();
             welcomeScan = new Scanner(System.in);
             String option = welcomeScan.nextLine();
             if (option.equals("1")) {

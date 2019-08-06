@@ -1,11 +1,10 @@
 package ui;
 
 import javafx.application.Application;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.geometry.HPos;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
@@ -14,7 +13,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 
-public class Main extends Application implements EventHandler<ActionEvent> {
+public class Main extends Application {
 
     private Button btnSubmit;
     private Button btnClear;
@@ -50,14 +49,13 @@ public class Main extends Application implements EventHandler<ActionEvent> {
         hbButtons.setSpacing(10.0);
 
         btnSubmit = new Button("Submit");
-        btnSubmit.setOnAction(this);
+        btnSubmit.setOnAction(b -> profileExists());
         btnClear = new Button("Clear");
-        btnClear.setOnAction(this);
+        btnClear.setOnAction(b -> tfName.clear());
         btnExit = new Button("Exit");
-        btnExit.setOnAction(this);
-        btnSubmit.setStyle("-fx-font-size: 15pt;");
+        btnExit.setOnAction(b -> System.exit(0));
 
-        lblName = new Label("User name:");
+        lblName = new Label("User Profile Name:");
         tfName = new TextField();
 
         hbButtons.getChildren().addAll(btnSubmit, btnClear, btnExit);
@@ -70,15 +68,12 @@ public class Main extends Application implements EventHandler<ActionEvent> {
         primaryStage.show();
     }
 
-    @Override
-    public void handle(ActionEvent event) {
-        if (event.getSource() == btnClear) {
-            tfName.clear();
-        }
-        if (event.getSource() == btnExit) {
-            System.exit(0);
-        }
-        if (event.getSource() == btnSubmit) {
+    public void profileExists() {
+        if (tfName.getText().equals("")) {
+            Alert a = new Alert(Alert.AlertType.WARNING,"You Have Not Entered A Profile Name");
+            a.setTitle("No PROFILE!");
+            a.showAndWait();
+        } else {
             LoadSaveProfile.loadingProfile();
         }
     }
