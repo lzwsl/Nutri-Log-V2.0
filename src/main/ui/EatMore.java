@@ -3,7 +3,6 @@ package ui;
 import model.Consumable;
 import model.Food;
 import model.Supplements;
-import observer.ListAdder;
 
 import java.io.Serializable;
 import java.util.ArrayList;
