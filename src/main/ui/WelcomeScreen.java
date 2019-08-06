@@ -44,7 +44,7 @@ public class WelcomeScreen extends Observable implements Serializable {
 
     //MODIFIES: this, SetCalQuota, eatMore, CalTotal, ArrayList<Integer>
     //EFFECTS: interface for user to navigate application
-    public WelcomeScreen() {
+    protected WelcomeScreen() {
         settingQuota = new SetCalQuota();
         settingQuota.calQuota();
         moreEating = new EatMore();
@@ -54,7 +54,7 @@ public class WelcomeScreen extends Observable implements Serializable {
     }
 
     //EFFECTS: runs the specified program that user chooses
-    public void run() {
+    protected void run() {
         for (int i = 1; i != 0; ) {
             promptPrintout();
             welcomeScan = new Scanner(System.in);

@@ -1,28 +1,68 @@
 package ui;
 
-import java.io.IOException;
+import javafx.application.Application;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.layout.StackPane;
+import javafx.stage.Stage;
 
-public class Main {
+public class Main extends Application {
 
     public static void main(String[] args) {
-        GetFromOnline g = new GetFromOnline();
-        try {
-            g.initialMessage();
-        } catch (IOException exp) {
-            System.out.println("Oops!");
-        }
-        System.out.println("Nutri-Log v1.1");
-        System.out.println("");
-        WelcomeScreen menu = LoadSaveProfile.loadingProfile();
-        menu.run();
-        LoadSaveProfile.savingProfile();
+        launch(args);
+//        GetFromOnline g = new GetFromOnline();
+//        try {
+//            g.initialMessage();
+//        } catch (IOException exp) {
+//            System.out.println("Oops!");
+//        }
+//        System.out.println("Nutri-Log v1.1");
+//        System.out.println("");
+//        WelcomeScreen menu = LoadSaveProfile.loadingProfile();
+//        menu.run();
+//        LoadSaveProfile.savingProfile();
     }
+
+    @Override
+    public void start(Stage primaryStage) throws Exception {
+        primaryStage.setTitle("Nutri-Log V2.0");
+        Button button = new Button();
+        button.setText("Enter/Initialize Profile");
+        button.setOnAction(new EventHandler<ActionEvent>() {
+
+            @Override
+            public void handle(ActionEvent event) {
+                System.out.println("pressed!");
+            }
+        });
+
+        StackPane layout = new StackPane();
+        layout.getChildren().add(button);
+        Scene scene = new Scene(layout, 1280, 720);
+        primaryStage.setScene(scene);
+        primaryStage.show();
+    }
+
 }
 
 
 
-
-
+//ORIGINACL MAIN CODE:
+//    public static void main(String[] args) {
+//        GetFromOnline g = new GetFromOnline();
+//        try {
+//            g.initialMessage();
+//        } catch (IOException exp) {
+//            System.out.println("Oops!");
+//        }
+//        System.out.println("Nutri-Log v1.1");
+//        System.out.println("");
+//        WelcomeScreen menu = LoadSaveProfile.loadingProfile();
+//        menu.run();
+//        LoadSaveProfile.savingProfile();
+//    }
 
 
 
