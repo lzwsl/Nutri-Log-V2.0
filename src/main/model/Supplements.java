@@ -19,11 +19,4 @@ public class Supplements extends Consumable {
         this.calories = 0;
     }
 
-    @Override
-    public String toString() {
-        return "Supplements{"
-                + "name='" + name + '\''
-                + ", calories=" + calories
-                + '}';
-    }
 }

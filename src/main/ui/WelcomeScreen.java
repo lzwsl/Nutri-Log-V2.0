@@ -34,7 +34,7 @@ public class WelcomeScreen extends Observable implements Serializable {
     //EFFECTS: interface for user to navigate application
     protected WelcomeScreen() {
         settingQuota = new SetCalQuota();
-        settingQuota.calQuota();
+//        settingQuota.calQuota();
         moreEating = new EatMore();
         totalCal = new CalTotal();
         calHistory = new ArrayList<>();

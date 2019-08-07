@@ -28,6 +28,9 @@ public class SetCalQuota implements Serializable {
         return calQuote;
     }
 
+    public void setCalQuota(int i) {
+        calorieQuota = i; }
+
     //MODIFIES: this
     //EFFECTS: edits the calorie quota if user desires.
     public void editCalorieQuota(SetCalQuota settingQuota) {
