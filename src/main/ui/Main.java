@@ -87,6 +87,7 @@ public class Main extends Application {
         primaryStage.show();
     }
 
+
     private void bigDecision(ToggleGroup mt, Stage primaryStage) {
         if (mt.getSelectedToggle().equals(opt1)) {
             editCalQuota(primaryStage);
