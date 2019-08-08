@@ -5,16 +5,22 @@ import javafx.geometry.HPos;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.scene.layout.*;
+import javafx.scene.layout.ColumnConstraints;
+import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import javafx.util.converter.NumberStringConverter;
+import model.Consumable;
 
 public class Main extends Application {
 
-    private WelcomeScreen menu;
+    private static WelcomeScreen menu;
 
     private Button btnSubmit;
     private Button btnClear;
     private Button btnExit;
+    private Button btnReturn;
 
     private RadioButton opt1;
     private RadioButton opt2;
@@ -22,11 +28,13 @@ public class Main extends Application {
     private RadioButton opt4;
 
     private Label lblName;
-    private Label lblPwd;
 
     private TextField tfName;
 
+    private ListView<String> listCons = new ListView();
+
     public static void main(String[] args) {
+        menu = new WelcomeScreen();
         launch(args);
     }
 
@@ -69,24 +77,34 @@ public class Main extends Application {
             Alert b = new Alert(Alert.AlertType.INFORMATION, "Profile Successfully Loaded/Created");
             b.setTitle("Loaded/Created Successfully");
             b.showAndWait();
+            if (menu.getCalQuota() == 0) {
+                setCalQuota();
+            }
             afterProfLoad(primaryStage);
         }
+    }
+
+    private void setCalQuota() {
+
     }
 
     private void afterProfLoad(Stage primaryStage) {
         GridPane bp = new GridPane();
         AplSetup aplSetup = new AplSetup(bp).invoke();
         VBox vb = aplSetup.getVb();
+        HBox hb = aplSetup.getHb();
         Scene scene = aplSetup.getScene();
         ToggleGroup mainTog = aplSetup.getMainTog();
         Button proceed = new Button("Proceed");
-        vb.getChildren().addAll(opt1, opt2, opt3, opt4, proceed);
+        btnExit = new Button("Exit");
+        btnExit.setOnAction(b -> LoadSaveProfile.savingProfile());
+        hb.getChildren().addAll(proceed, btnExit);
+        vb.getChildren().addAll(opt1, opt2, opt3, opt4, hb);
         proceed.setOnAction(b -> bigDecision(mainTog, primaryStage));
         bp.add(vb,1,1);
         primaryStage.setScene(scene);
         primaryStage.show();
     }
-
 
     private void bigDecision(ToggleGroup mt, Stage primaryStage) {
         if (mt.getSelectedToggle().equals(opt1)) {
@@ -99,8 +117,44 @@ public class Main extends Application {
             System.out.println("opt3");
         }
         if (mt.getSelectedToggle().equals(opt4)) {
-            System.out.println("opt4");
+            viewAllItems(primaryStage);
         }
+    }
+
+    private void viewAllItems(Stage primaryStage) {
+        GridPane ecq = new GridPane();
+        HBox hb = new HBox();
+        Label foodEaten = new Label("Food Items Consumed + Caloric Fulfillment:");
+
+        ecq.setAlignment(Pos.CENTER);
+        ecq.setHgap(10);
+        ecq.setVgap(12);
+        hb.setSpacing(10.0);
+
+        ColumnConstraints column1 = new ColumnConstraints();
+        column1.setHalignment(HPos.RIGHT);
+        ecq.getColumnConstraints().add(column1);
+
+        ColumnConstraints column2 = new ColumnConstraints();
+        column2.setHalignment(HPos.LEFT);
+        ecq.getColumnConstraints().add(column2);
+
+        for (Consumable f : menu.getHistory()) {
+            listCons.getItems().add(f.getName() + " - " + f.getCalories() + " calorie(s)");
+        }
+
+        btnReturn = new Button("Return");
+        btnReturn.setOnAction(b -> afterProfLoad(primaryStage));
+        btnExit = new Button("Exit");
+        btnExit.setOnAction(b -> LoadSaveProfile.savingProfile());
+
+        hb.getChildren().addAll(btnReturn, btnExit);
+        ecq.add(foodEaten, 0, 0);
+        ecq.add(listCons, 0, 1);
+        ecq.add(hb, 0, 2);
+        Scene s = new Scene(ecq, 480, 720);
+        primaryStage.setScene(s);
+        primaryStage.show();
     }
 
     private void editCalQuota(Stage primaryStage) {
@@ -113,20 +167,22 @@ public class Main extends Application {
         btnSubmit.setOnAction(b -> System.out.println("hih"));
         btnClear = new Button("Clear");
         btnClear.setOnAction(b -> tfName.clear());
+        btnReturn = new Button("Return");
+        btnReturn.setOnAction(b -> afterProfLoad(primaryStage));
         btnExit = new Button("Exit");
         btnExit.setOnAction(b -> LoadSaveProfile.savingProfile());
 
         Label lblQuota = new Label("Enter Caloric Quota:");
         tfName = new TextField();
 
-        ecqBttns.getChildren().addAll(btnSubmit, btnClear, btnExit);
+
+        ecqBttns.getChildren().addAll(btnSubmit, btnClear, btnReturn, btnExit);
         ecq.add(lblQuota, 0, 0);
         ecq.add(tfName, 1, 0);
         ecq.add(ecqBttns, 0, 2, 2, 1);
         primaryStage.setScene(ecqScene);
         primaryStage.show();
     }
-
 
     protected class MainGuiSetup {
         private GridPane grid;
@@ -166,30 +222,43 @@ public class Main extends Application {
         HBox ecqBttns = makeFoodSetup.getEcqBttns();
         Scene ecqScene = makeFoodSetup.getEcqScene();
 
-        mfInteraction(ecq, ecqBttns);
+        mfInteraction(ecq, ecqBttns, primaryStage);
         primaryStage.setScene(ecqScene);
         primaryStage.show();
     }
 
-    private void mfInteraction(GridPane ecq, HBox ecqBttns) {
-        btnSubmit = new Button("Submit");
-        btnSubmit.setOnAction(b -> System.out.println("hih"));
-        btnClear = new Button("Clear");
-        btnClear.setOnAction(b -> tfName.clear());
-        btnExit = new Button("Exit");
-        btnExit.setOnAction(b -> LoadSaveProfile.savingProfile());
-
+    private void mfInteraction(GridPane ecq, HBox ecqBttns, Stage primaryStage) {
         Label lblName = new Label("Enter Food Name:");
         TextField foodName = new TextField();
         Label lblCalories = new Label("Enter Food Calories:");
         TextField foodCalories = new TextField();
+        foodCalories.setTextFormatter(new TextFormatter<>(new NumberStringConverter()));
 
-        ecqBttns.getChildren().addAll(btnSubmit, btnClear, btnExit);
+        btnSubmit = new Button("Submit");
+        btnSubmit.setOnAction(b -> foodConfirmation(foodName, foodCalories));
+        btnClear = new Button("Clear");
+        btnClear.setOnAction(b -> tfName.clear());
+        btnReturn = new Button("Return");
+        btnReturn.setOnAction(b -> afterProfLoad(primaryStage));
+        btnExit = new Button("Exit");
+        btnExit.setOnAction(b -> LoadSaveProfile.savingProfile());
+
+        ecqBttns.getChildren().addAll(btnSubmit, btnClear, btnReturn, btnExit);
         ecq.add(lblName, 0, 0);
         ecq.add(foodName, 1, 0);
         ecq.add(lblCalories, 0, 1);
         ecq.add(foodCalories, 1, 1);
         ecq.add(ecqBttns, 0, 3, 2, 1);
+    }
+
+    private void foodConfirmation(TextField foodName, TextField foodCalories) {
+        menu.addFood(foodName.getText(),
+                Integer.parseInt(foodCalories.getText()));
+        Alert conf = new Alert(Alert.AlertType.CONFIRMATION);
+        conf.setTitle("Food Confirmation");
+        conf.setContentText("You Have Entered: " + "\n Item: " + foodName.getText()
+                + "\n Calories: " + foodCalories.getText());
+        conf.showAndWait();
     }
 
     private class MakeFoodSetup {
@@ -269,6 +338,7 @@ public class Main extends Application {
         private VBox vb;
         private Scene scene;
         private ToggleGroup mainTog;
+        private HBox hb;
 
         public AplSetup(GridPane bp) {
             this.bp = bp;
@@ -276,6 +346,10 @@ public class Main extends Application {
 
         public VBox getVb() {
             return vb;
+        }
+
+        public HBox getHb() {
+            return hb;
         }
 
         public Scene getScene() {
@@ -292,6 +366,8 @@ public class Main extends Application {
             bp.setVgap(12);
             vb = new VBox();
             vb.setSpacing(10);
+            hb = new HBox();
+            hb.setSpacing(10);
             scene = new Scene(bp, 480, 720);
             opt1 = new RadioButton("View/Edit Calorie Quota");
             opt2 = new RadioButton("Input Items To Be Consumed");

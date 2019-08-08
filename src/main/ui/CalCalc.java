@@ -12,7 +12,7 @@ public class CalCalc implements Serializable {
     //         if the total calories is less or more, will output different responses.
     public void ableToEat(Consumable f, CalTotal c, SetCalQuota s, ArrayList<Consumable> a) {
         Integer totalCal = c.totalCalories(f, a);
-        if (totalCal <= s.getCalorieQuota()) {
+        if (totalCal <= s.getCalQuota()) {
             System.out.println("You are within your caloric quota");
             System.out.println("Your total calorie intake is: " + totalCal + " calories");
         } else {

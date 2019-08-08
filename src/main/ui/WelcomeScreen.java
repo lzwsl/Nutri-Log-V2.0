@@ -1,6 +1,8 @@
 package ui;
 
 import model.Consumable;
+import model.Food;
+import model.Supplements;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -19,7 +21,7 @@ public class WelcomeScreen extends Observable implements Serializable {
     private AllItems everyItem;
 
     //EFFECTS: main menu
-    private void mainMenuSelections() {
+    public void mainMenuSelections() {
         System.out.println(optionPrompt.get(""));
         System.out.println(optionPrompt.get("Please choose from the following:"));
         System.out.println(optionPrompt.get("(1) View/Edit Calorie Quota"));
@@ -32,7 +34,7 @@ public class WelcomeScreen extends Observable implements Serializable {
 
     //MODIFIES: this, SetCalQuota, eatMore, CalTotal, ArrayList<Integer>
     //EFFECTS: interface for user to navigate application
-    protected WelcomeScreen() {
+    public WelcomeScreen() {
         settingQuota = new SetCalQuota();
 //        settingQuota.calQuota();
         moreEating = new EatMore();
@@ -41,8 +43,30 @@ public class WelcomeScreen extends Observable implements Serializable {
         everyItem = new AllItems();
     }
 
+    public void setCalQuota(int i) {
+        settingQuota.setCalQuota(i);
+    }
+
+    public int getCalQuota() {
+        return settingQuota.getCalQuota();
+    }
+
+    public void addFood(String name, Integer calories) {
+        Consumable f = new Food(name, calories);
+        calHistory.add(f);
+    }
+
+    public void addSupplement(String name) {
+        Consumable s = new Supplements(name, null);
+        calHistory.add(s);
+    }
+
+    public ArrayList<Consumable> getHistory() {
+        return calHistory;
+    }
+
     //EFFECTS: runs the specified program that user chooses
-    protected void run() {
+    public void run() {
         for (int i = 1; i != 0; ) {
             mainMenuSelections();
             welcomeScan = new Scanner(System.in);
@@ -78,7 +102,7 @@ public class WelcomeScreen extends Observable implements Serializable {
 
 //ORIGINAL CODE:
 //if (option.equals("1")) {
-//        System.out.println("Your Set Quota is: " + settingQuota.getCalorieQuota());
+//        System.out.println("Your Set Quota is: " + settingQuota.getCalQuota());
 //        settingQuota.editCalorieQuota();
 //        } else if (option.equals("2")) {
 //        moreEating.eatMore(totalCal, settingQuota, calHistory);
