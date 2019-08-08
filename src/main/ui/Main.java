@@ -16,6 +16,17 @@ public class Main extends Application {
 
     private static WelcomeScreen menu;
 
+    private String buttonStyle = "-fx-background-color: \n"
+            + "#000000,\n"
+            + "linear-gradient(#7ebcea, #2f4b8f),\n"
+            + "linear-gradient(#426ab7, #263e75),\n"
+            + "linear-gradient(#395cab, #223768);\n"
+            + "-fx-background-insets: 0,1,2,3;\n"
+            + "-fx-background-radius: 3,2,2,2;\n"
+            + "-fx-padding: 12 30 12 30;\n"
+            + "-fx-text-fill: white;\n"
+            + "-fx-font-size: 12px";
+
     private Button btnSubmit;
     private Button btnClear;
     private Button btnExit;
@@ -56,14 +67,32 @@ public class Main extends Application {
         btnClear.setOnAction(b -> tfName.clear());
         btnExit = new Button("Exit");
         btnExit.setOnAction(b -> System.exit(0));
+        btnSubmit.setStyle(buttonStyle);
+        btnExit.setStyle(buttonStyle);
+        btnClear.setStyle(buttonStyle);
 
         lblName = new Label("User Profile Name:");
         tfName = new TextField();
 
+        Label nutriLog = new Label("Nutri-Log V2.0");
+        nutriLog.setStyle("-fx-font-size: 36px");
+        Label nowWith = new Label("Now With A Graphical Interface!");
+        nowWith.setStyle("-fx-font-size: 14px");
+
         hbButtons.getChildren().addAll(btnSubmit, btnClear, btnExit);
-        grid.add(lblName, 0, 0);
-        grid.add(tfName, 1, 0);
-        grid.add(hbButtons, 0, 2, 2, 1);
+
+        GridPane vb = new GridPane();
+        vb.setAlignment(Pos.CENTER);
+        vb.add(nutriLog, 0,0);
+
+        GridPane mb = new GridPane();
+        mb.setAlignment(Pos.CENTER);
+        mb.add(nowWith, 0,1);
+        grid.add(vb, 0,0,2,2);
+        grid.add(mb, 0, 2, 2,1);
+        grid.add(lblName, 0, 8);
+        grid.add(tfName, 1, 8);
+        grid.add(hbButtons, 0, 10, 2, 1);
     }
 
     public void profileExists(Stage primaryStage) {
@@ -115,14 +144,31 @@ public class Main extends Application {
         GridPane bp = new GridPane();
         AplSetup aplSetup = new AplSetup(bp).invoke();
         VBox vb = aplSetup.getVb();
+        vb.setSpacing(22);
         HBox hb = aplSetup.getHb();
+
+        ColumnConstraints column1 = new ColumnConstraints();
+        column1.setHalignment(HPos.RIGHT);
+        bp.getColumnConstraints().add(column1);
+
+        ColumnConstraints column2 = new ColumnConstraints();
+        column2.setHalignment(HPos.LEFT);
+        bp.getColumnConstraints().add(column2);
+
+        Label nutriLog = new Label("Nutri-Log V2.0");
+        nutriLog.setStyle("-fx-font-size: 36px");
+        Label mainMenu = new Label("Please Select From The Following:");
+
         Scene scene = aplSetup.getScene();
         ToggleGroup mainTog = aplSetup.getMainTog();
         Button proceed = new Button("Proceed");
         btnExit = new Button("Exit");
         btnExit.setOnAction(b -> LoadSaveProfile.savingProfile());
+        btnExit.setStyle(buttonStyle);
+        proceed.setStyle(buttonStyle);
+
         hb.getChildren().addAll(proceed, btnExit);
-        vb.getChildren().addAll(opt1, opt2, opt3, opt4, hb);
+        vb.getChildren().addAll(nutriLog, mainMenu, opt1, opt2, opt3, opt4, hb);
         proceed.setOnAction(b -> bigDecision(mainTog, primaryStage));
         bp.add(vb,1,1);
         primaryStage.setScene(scene);
@@ -130,17 +176,24 @@ public class Main extends Application {
     }
 
     private void bigDecision(ToggleGroup mt, Stage primaryStage) {
-        if (mt.getSelectedToggle().equals(opt1)) {
-            editCalQuota(primaryStage);
-        }
-        if (mt.getSelectedToggle().equals(opt2)) {
-            makeFood(primaryStage);
-        }
-        if (mt.getSelectedToggle().equals(opt3)) {
-            getEditCurrentCalories(primaryStage);
-        }
-        if (mt.getSelectedToggle().equals(opt4)) {
-            viewAllItems(primaryStage);
+        try {
+            if (mt.getSelectedToggle().equals(opt1)) {
+                editCalQuota(primaryStage);
+            }
+            if (mt.getSelectedToggle().equals(opt2)) {
+                makeFood(primaryStage);
+            }
+            if (mt.getSelectedToggle().equals(opt3)) {
+                getEditCurrentCalories(primaryStage);
+            }
+            if (mt.getSelectedToggle().equals(opt4)) {
+                viewAllItems(primaryStage);
+            }
+        } catch (Exception exp) {
+            Alert conf = new Alert(Alert.AlertType.WARNING);
+            conf.setTitle("Invalid Selection");
+            conf.setContentText("Please Select A Valid Option");
+            conf.showAndWait();
         }
     }
 
@@ -164,8 +217,10 @@ public class Main extends Application {
                 + menu.getCurrentCalories());
         btnReturn = new Button("Return");
         btnReturn.setOnAction(b -> afterProfLoad(s));
+        btnReturn.setStyle(buttonStyle);
         Button btnReset = new Button("Reset");
         btnReset.setOnAction(b -> resetMessage());
+        btnReset.setStyle(buttonStyle);
         hb.getChildren().addAll(btnReset, btnReturn);
 
         grid.add(label, 0,0);
@@ -211,6 +266,8 @@ public class Main extends Application {
         btnReturn.setOnAction(b -> afterProfLoad(primaryStage));
         btnExit = new Button("Exit");
         btnExit.setOnAction(b -> LoadSaveProfile.savingProfile());
+        btnReturn.setStyle(buttonStyle);
+        btnExit.setStyle(buttonStyle);
 
         hb.getChildren().addAll(btnReturn, btnExit);
         ecq.add(foodEaten, 0, 0);
@@ -298,6 +355,10 @@ public class Main extends Application {
         btnReturn.setOnAction(b -> afterProfLoad(primaryStage));
         btnExit = new Button("Exit");
         btnExit.setOnAction(b -> LoadSaveProfile.savingProfile());
+        btnReturn.setStyle(buttonStyle);
+        btnExit.setStyle(buttonStyle);
+        btnClear.setStyle(buttonStyle);
+        btnSubmit.setStyle(buttonStyle);
 
         ecqBttns.getChildren().addAll(btnSubmit, btnClear, btnReturn, btnExit);
         ecq.add(lblName, 0, 0);
@@ -340,42 +401,6 @@ public class Main extends Application {
         }
 
         public MakeFoodSetup invoke() {
-            ecq.setAlignment(Pos.CENTER);
-            ecq.setHgap(10);
-            ecq.setVgap(12);
-            ecqBttns = new HBox();
-            ecqBttns.setSpacing(10.0);
-            ecqScene = new Scene(ecq, 480, 720);
-
-            ColumnConstraints column1 = new ColumnConstraints();
-            column1.setHalignment(HPos.RIGHT);
-            ecq.getColumnConstraints().add(column1);
-
-            ColumnConstraints column2 = new ColumnConstraints();
-            column2.setHalignment(HPos.LEFT);
-            ecq.getColumnConstraints().add(column2);
-            return this;
-        }
-    }
-
-    private class EcqSetup {
-        private GridPane ecq;
-        private HBox ecqBttns;
-        private Scene ecqScene;
-
-        public EcqSetup(GridPane ecq) {
-            this.ecq = ecq;
-        }
-
-        public HBox getEcqBttns() {
-            return ecqBttns;
-        }
-
-        public Scene getEcqScene() {
-            return ecqScene;
-        }
-
-        public EcqSetup invoke() {
             ecq.setAlignment(Pos.CENTER);
             ecq.setHgap(10);
             ecq.setVgap(12);
@@ -502,6 +527,9 @@ public class Main extends Application {
             proceed.setOnAction(b -> quotaConfirm(calQuota));
             btnClear = new Button("Clear");
             btnClear.setOnAction(b -> calQuota.clear());
+            btnReturn.setStyle(buttonStyle);
+            btnClear.setStyle(buttonStyle);
+            proceed.setStyle(buttonStyle);
             hb.getChildren().addAll(proceed, btnClear, btnReturn);
             return this;
         }
