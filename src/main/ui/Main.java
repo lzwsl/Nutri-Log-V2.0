@@ -137,11 +137,50 @@ public class Main extends Application {
             makeFood(primaryStage);
         }
         if (mt.getSelectedToggle().equals(opt3)) {
-            System.out.println("opt3");
+            getEditCurrentCalories(primaryStage);
         }
         if (mt.getSelectedToggle().equals(opt4)) {
             viewAllItems(primaryStage);
         }
+    }
+
+    private void getEditCurrentCalories(Stage s) {
+        GridPane grid = new GridPane();
+        grid.setAlignment(Pos.CENTER);
+        grid.setHgap(10);
+        grid.setVgap(12);
+        HBox hb = new HBox();
+        hb.setSpacing(10);
+
+        ColumnConstraints column1 = new ColumnConstraints();
+        column1.setHalignment(HPos.RIGHT);
+        grid.getColumnConstraints().add(column1);
+
+        ColumnConstraints column2 = new ColumnConstraints();
+        column2.setHalignment(HPos.LEFT);
+        grid.getColumnConstraints().add(column2);
+
+        Label label = new Label("Your Current Calories Consumed: "
+                + menu.getCurrentCalories());
+        btnReturn = new Button("Return");
+        btnReturn.setOnAction(b -> afterProfLoad(s));
+        btnClear = new Button("Reset");
+        btnClear.setOnAction(b -> resetMessage());
+        hb.getChildren().addAll(btnClear, btnReturn);
+
+        grid.add(label, 0,0);
+        grid.add(hb, 0, 2, 2, 1);
+        Scene sc = new Scene(grid, 480, 720);
+        s.setScene(sc);
+        s.show();
+    }
+
+    private void resetMessage() {
+        menu.resetCalorieHistory();
+        Alert conf = new Alert(Alert.AlertType.CONFIRMATION);
+        conf.setTitle("Clear Caloric Consumption History");
+        conf.setContentText("Caloric History Has Been Cleared");
+        conf.showAndWait();
     }
 
     private void viewAllItems(Stage primaryStage) {
@@ -163,7 +202,7 @@ public class Main extends Application {
         ecq.getColumnConstraints().add(column2);
 
         for (Consumable f : menu.getHistory()) {
-            listCons.getItems().add(f.getName() + " - " + f.getCalories() + " calorie(s)");
+            listCons.getItems().add(f.getName() + " - " + f.getCalories() + " calorie(stage)");
         }
 
         btnReturn = new Button("Return");
@@ -429,13 +468,13 @@ public class Main extends Application {
     }
 
     private class QuotaButton {
-        private Stage s;
+        private Stage stage;
         private HBox hb;
         private TextField calQuota;
         private Label setQuote;
 
-        public QuotaButton(Stage s, HBox hb) {
-            this.s = s;
+        public QuotaButton(Stage stage, HBox hb) {
+            this.stage = stage;
             this.hb = hb;
         }
 
@@ -452,7 +491,7 @@ public class Main extends Application {
             calQuota = new TextField();
             setQuote = new Label("Enter Caloric Quota:");
             btnReturn = new Button("Return");
-            btnReturn.setOnAction(b -> afterProfLoad(s));
+            btnReturn.setOnAction(b -> afterProfLoad(stage));
             proceed.setOnAction(b -> quotaConfirm(calQuota));
             btnClear = new Button("Clear");
             btnClear.setOnAction(b -> calQuota.clear());

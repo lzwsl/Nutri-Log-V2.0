@@ -26,21 +26,30 @@ public class CalTotal implements Serializable {
         return calorieTotal;
     }
 
+
     //MODIFIES: this
     //EFFECTS: clears total calorie history if user decides
-    public ArrayList<Consumable> clearCurrentCalories(ArrayList<Consumable> a, CalTotal totaCal) {
-        System.out.println("Your Current Calories Consumed: " + totaCal.getCurrentCalories());
-        System.out.println("Would You Like to Clear Current Calories? (yes/no)");
-        if (scanner.nextLine().equals("yes")) {
-            a.clear();
-            calorieTotal = 0;
-            Integer retVal = a.size();
-            System.out.println("Calorie History is Cleared, Set To " + retVal + " Calories");
-        } else {
-            return a;
-        }
+    public ArrayList<Consumable> clearCurrentCalories(ArrayList<Consumable> a) {
+        a.clear();
+        calorieTotal = 0;
         return a;
     }
+
+    //MODIFIES: this
+    //EFFECTS: clears total calorie history if user decides
+//    public ArrayList<Consumable> clearCurrentCalories(ArrayList<Consumable> a, CalTotal totaCal) {
+//        System.out.println("Your Current Calories Consumed: " + totaCal.getCurrentCalories());
+//        System.out.println("Would You Like to Clear Current Calories? (yes/no)");
+//        if (scanner.nextLine().equals("yes")) {
+//            a.clear();
+//            calorieTotal = 0;
+//            Integer retVal = a.size();
+//            System.out.println("Calorie History is Cleared, Set To " + retVal + " Calories");
+//        } else {
+//            return a;
+//        }
+//        return a;
+//    }
 
     //EFFECTS: gets consumable foods
     public void getConsumableFoods(AllItems a, ArrayList al) {

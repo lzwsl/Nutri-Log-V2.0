@@ -19,7 +19,6 @@ public class EatMore extends Observable implements Serializable {
     //EFFECTS: questions user and confirms calorie consumption, takes in
     //         user input and forwards to calorie calculations.
     public void eatMore(CalTotal c, SetCalQuota s, ArrayList<Consumable> a) {
-        checkForObservers();
         CalCalc caloricCalc = new CalCalc();
         scanner = new Scanner(System.in);
         System.out.println("Can you eat more today? (yes/no)");
@@ -37,13 +36,6 @@ public class EatMore extends Observable implements Serializable {
             System.out.println("Invalid Entry, Try Again");
             eatMore(c, s, a);
         }
-    }
-
-    private void checkForObservers() {
-        if (countObservers() != 0) {
-            deleteObservers();
-        }
-        addObserver(new ListAdder());
     }
 
     //EFFECTS: processes user input if they can or cannot eat

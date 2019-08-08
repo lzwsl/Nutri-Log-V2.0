@@ -54,11 +54,24 @@ public class WelcomeScreen extends Observable implements Serializable {
     public void addFood(String name, Integer calories) {
         Consumable f = new Food(name, calories);
         calHistory.add(f);
+        calculateTotal(f);
     }
 
     public void addSupplement(String name) {
-        Consumable s = new Supplements(name, null);
+        Consumable s = new Supplements(name, 0);
         calHistory.add(s);
+    }
+
+    public Integer getCurrentCalories() {
+        return totalCal.getCurrentCalories();
+    }
+
+    public void resetCalorieHistory() {
+        totalCal.clearCurrentCalories(calHistory);
+    }
+
+    public void calculateTotal(Consumable c) {
+        totalCal.totalCalories(c, calHistory);
     }
 
     public ArrayList<Consumable> getHistory() {
@@ -76,7 +89,7 @@ public class WelcomeScreen extends Observable implements Serializable {
             } else if (option.equals("2")) {
                 moreEating.eatMore(totalCal, settingQuota, calHistory);
             } else if (option.equals("3")) {
-                totalCal.clearCurrentCalories(calHistory, totalCal);
+                totalCal.clearCurrentCalories(calHistory);
             } else if (option.equals("4")) {
                 totalCal.getConsumableFoods(everyItem, calHistory);
             } else if (option.equals("0")) {
