@@ -53,7 +53,6 @@ public class WelcomeScreen extends Observable implements Serializable {
 
     public void addFood(String name, Integer calories) {
         Consumable f = new Food(name, calories);
-        calHistory.add(f);
         calculateTotal(f);
     }
 

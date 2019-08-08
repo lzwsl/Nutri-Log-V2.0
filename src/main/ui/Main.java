@@ -164,9 +164,9 @@ public class Main extends Application {
                 + menu.getCurrentCalories());
         btnReturn = new Button("Return");
         btnReturn.setOnAction(b -> afterProfLoad(s));
-        btnClear = new Button("Reset");
-        btnClear.setOnAction(b -> resetMessage());
-        hb.getChildren().addAll(btnClear, btnReturn);
+        Button btnReset = new Button("Reset");
+        btnReset.setOnAction(b -> resetMessage());
+        hb.getChildren().addAll(btnReset, btnReturn);
 
         grid.add(label, 0,0);
         grid.add(hb, 0, 2, 2, 1);
@@ -177,6 +177,7 @@ public class Main extends Application {
 
     private void resetMessage() {
         menu.resetCalorieHistory();
+        listCons.getItems().clear();
         Alert conf = new Alert(Alert.AlertType.CONFIRMATION);
         conf.setTitle("Clear Caloric Consumption History");
         conf.setContentText("Caloric History Has Been Cleared");
@@ -201,8 +202,9 @@ public class Main extends Application {
         column2.setHalignment(HPos.LEFT);
         ecq.getColumnConstraints().add(column2);
 
+        listCons.getItems().clear();
         for (Consumable f : menu.getHistory()) {
-            listCons.getItems().add(f.getName() + " - " + f.getCalories() + " calorie(stage)");
+            listCons.getItems().add(f.getName() + " - " + f.getCalories() + " calorie(s)");
         }
 
         btnReturn = new Button("Return");
@@ -291,7 +293,7 @@ public class Main extends Application {
         btnSubmit = new Button("Submit");
         btnSubmit.setOnAction(b -> foodConfirmation(foodName, foodCalories));
         btnClear = new Button("Clear");
-        btnClear.setOnAction(b -> tfName.clear());
+        btnClear.setOnAction(b -> clearFields(foodName, foodCalories));
         btnReturn = new Button("Return");
         btnReturn.setOnAction(b -> afterProfLoad(primaryStage));
         btnExit = new Button("Exit");
@@ -303,6 +305,11 @@ public class Main extends Application {
         ecq.add(lblCalories, 0, 1);
         ecq.add(foodCalories, 1, 1);
         ecq.add(ecqBttns, 0, 3, 2, 1);
+    }
+
+    private void clearFields(TextField foodName, TextField foodCalories) {
+        foodName.clear();
+        foodCalories.clear();
     }
 
     private void foodConfirmation(TextField foodName, TextField foodCalories) {
