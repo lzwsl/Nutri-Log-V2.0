@@ -10,7 +10,6 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-import javafx.util.converter.NumberStringConverter;
 import model.Consumable;
 
 public class Main extends Application {
@@ -78,14 +77,38 @@ public class Main extends Application {
             b.setTitle("Loaded/Created Successfully");
             b.showAndWait();
             if (menu.getCalQuota() == 0) {
-                setCalQuota();
+                setCalQuota(primaryStage);
+            } else {
+                afterProfLoad(primaryStage);
             }
-            afterProfLoad(primaryStage);
         }
     }
 
-    private void setCalQuota() {
+    private void setCalQuota(Stage s) {
+        GridPane grid;
+        QuotaSetup quotaSetup = new QuotaSetup().invoke();
+        grid = quotaSetup.getGrid();
+        HBox hb = quotaSetup.getHb();
 
+        QuotaButton quotaButton = new QuotaButton(s, hb).invoke();
+        TextField calQuota = quotaButton.getCalQuota();
+        Label setQuote = quotaButton.getSetQuote();
+
+
+        grid.add(setQuote, 0, 0);
+        grid.add(calQuota, 1,0);
+        grid.add(hb,0,2,2,1);
+        Scene sc = new Scene(grid, 480, 720);
+        s.setScene(sc);
+        s.show();
+    }
+
+    private void quotaConfirm(TextField calQuota) {
+        menu.setCalQuota(Integer.parseInt(calQuota.getText()));
+        Alert conf = new Alert(Alert.AlertType.INFORMATION);
+        conf.setTitle("Set Calorie Quota");
+        conf.setContentText("You Have Set Your Caloric Quota To: " + calQuota.getText() + " Calories");
+        conf.showAndWait();
     }
 
     private void afterProfLoad(Stage primaryStage) {
@@ -157,31 +180,24 @@ public class Main extends Application {
         primaryStage.show();
     }
 
-    private void editCalQuota(Stage primaryStage) {
-        GridPane ecq = new GridPane();
-        EcqSetup ecqSetup = new EcqSetup(ecq).invoke();
-        HBox ecqBttns = ecqSetup.getEcqBttns();
-        Scene ecqScene = ecqSetup.getEcqScene();
+    private void editCalQuota(Stage s) {
+        GridPane grid;
+        QuotaSetup quotaSetup = new QuotaSetup().invoke();
+        grid = quotaSetup.getGrid();
+        HBox hb = quotaSetup.getHb();
 
-        btnSubmit = new Button("Submit");
-        btnSubmit.setOnAction(b -> System.out.println("hih"));
-        btnClear = new Button("Clear");
-        btnClear.setOnAction(b -> tfName.clear());
-        btnReturn = new Button("Return");
-        btnReturn.setOnAction(b -> afterProfLoad(primaryStage));
-        btnExit = new Button("Exit");
-        btnExit.setOnAction(b -> LoadSaveProfile.savingProfile());
+        Label currentQuota = new Label("Current Quota: " + menu.getCalQuota());
+        QuotaButton quotaButton = new QuotaButton(s, hb).invoke();
+        TextField calQuota = quotaButton.getCalQuota();
+        Label setQuote = quotaButton.getSetQuote();
 
-        Label lblQuota = new Label("Enter Caloric Quota:");
-        tfName = new TextField();
-
-
-        ecqBttns.getChildren().addAll(btnSubmit, btnClear, btnReturn, btnExit);
-        ecq.add(lblQuota, 0, 0);
-        ecq.add(tfName, 1, 0);
-        ecq.add(ecqBttns, 0, 2, 2, 1);
-        primaryStage.setScene(ecqScene);
-        primaryStage.show();
+        grid.add(currentQuota, 0, 0);
+        grid.add(setQuote, 0, 2);
+        grid.add(calQuota, 1,2);
+        grid.add(hb,0,4,2,1);
+        Scene sc = new Scene(grid, 480, 720);
+        s.setScene(sc);
+        s.show();
     }
 
     protected class MainGuiSetup {
@@ -232,7 +248,6 @@ public class Main extends Application {
         TextField foodName = new TextField();
         Label lblCalories = new Label("Enter Food Calories:");
         TextField foodCalories = new TextField();
-        foodCalories.setTextFormatter(new TextFormatter<>(new NumberStringConverter()));
 
         btnSubmit = new Button("Submit");
         btnSubmit.setOnAction(b -> foodConfirmation(foodName, foodCalories));
@@ -378,6 +393,70 @@ public class Main extends Application {
             opt2.setToggleGroup(mainTog);
             opt3.setToggleGroup(mainTog);
             opt4.setToggleGroup(mainTog);
+            return this;
+        }
+    }
+
+    private class QuotaSetup {
+        private GridPane grid;
+        private HBox hb;
+
+        public GridPane getGrid() {
+            return grid;
+        }
+
+        public HBox getHb() {
+            return hb;
+        }
+
+        public QuotaSetup invoke() {
+            grid = new GridPane();
+            grid.setAlignment(Pos.CENTER);
+            grid.setHgap(10);
+            grid.setVgap(12);
+            hb = new HBox();
+            hb.setSpacing(10);
+
+            ColumnConstraints column1 = new ColumnConstraints();
+            column1.setHalignment(HPos.RIGHT);
+            grid.getColumnConstraints().add(column1);
+
+            ColumnConstraints column2 = new ColumnConstraints();
+            column2.setHalignment(HPos.LEFT);
+            grid.getColumnConstraints().add(column2);
+            return this;
+        }
+    }
+
+    private class QuotaButton {
+        private Stage s;
+        private HBox hb;
+        private TextField calQuota;
+        private Label setQuote;
+
+        public QuotaButton(Stage s, HBox hb) {
+            this.s = s;
+            this.hb = hb;
+        }
+
+        public TextField getCalQuota() {
+            return calQuota;
+        }
+
+        public Label getSetQuote() {
+            return setQuote;
+        }
+
+        public QuotaButton invoke() {
+            Button proceed = new Button("Submit");
+            calQuota = new TextField();
+            setQuote = new Label("Enter Caloric Quota:");
+            btnReturn = new Button("Return");
+            btnReturn.setOnAction(b -> afterProfLoad(s));
+            proceed.setOnAction(b -> quotaConfirm(calQuota));
+            btnClear = new Button("Clear");
+            btnClear.setOnAction(b -> calQuota.clear());
+            hb.getChildren().addAll(proceed, btnClear, btnReturn);
             return this;
         }
     }

@@ -6,7 +6,7 @@ import java.util.Scanner;
 public class SetCalQuota implements Serializable {
     private transient Scanner calInput;
     private int calQuote;
-    private Integer calorieQuota = 0;
+    private Integer calorieQuota;
 
     //MODIFIES: this
     //EFFECTS: takes in user input and sets the calorie quota.
@@ -25,7 +25,7 @@ public class SetCalQuota implements Serializable {
 
     //EFFECTS: sets the calorie quota.
     public int getCalQuota() {
-        return calQuote;
+        return calorieQuota;
     }
 
     public void setCalQuota(int i) {
