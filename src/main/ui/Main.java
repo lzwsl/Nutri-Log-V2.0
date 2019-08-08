@@ -61,18 +61,7 @@ public class Main extends Application {
     }
 
     private void setInitialButtons(Stage primaryStage, GridPane grid, HBox hbButtons) {
-        btnSubmit = new Button("Submit");
-        btnSubmit.setOnAction(b -> profileExists(primaryStage));
-        btnClear = new Button("Clear");
-        btnClear.setOnAction(b -> tfName.clear());
-        btnExit = new Button("Exit");
-        btnExit.setOnAction(b -> System.exit(0));
-        btnSubmit.setStyle(buttonStyle);
-        btnExit.setStyle(buttonStyle);
-        btnClear.setStyle(buttonStyle);
-
-        lblName = new Label("User Profile Name:");
-        tfName = new TextField();
+        new IntialButtonLabelCreation(primaryStage).invoke();
 
         Label nutriLog = new Label("Nutri-Log V2.0");
         nutriLog.setStyle("-fx-font-size: 36px");
@@ -141,31 +130,18 @@ public class Main extends Application {
     }
 
     private void afterProfLoad(Stage primaryStage) {
-        GridPane bp = new GridPane();
-        AplSetup aplSetup = new AplSetup(bp).invoke();
-        VBox vb = aplSetup.getVb();
-        vb.setSpacing(22);
-        HBox hb = aplSetup.getHb();
+        AfterProfileLoadGui afterProfileLoadGui = new AfterProfileLoadGui().invoke();
+        GridPane bp = afterProfileLoadGui.getBp();
+        AplSetup aplSetup = afterProfileLoadGui.getAplSetup();
+        VBox vb = afterProfileLoadGui.getVb();
+        HBox hb = afterProfileLoadGui.getHb();
 
-        ColumnConstraints column1 = new ColumnConstraints();
-        column1.setHalignment(HPos.RIGHT);
-        bp.getColumnConstraints().add(column1);
-
-        ColumnConstraints column2 = new ColumnConstraints();
-        column2.setHalignment(HPos.LEFT);
-        bp.getColumnConstraints().add(column2);
-
-        Label nutriLog = new Label("Nutri-Log V2.0");
-        nutriLog.setStyle("-fx-font-size: 36px");
-        Label mainMenu = new Label("Please Select From The Following:");
-
-        Scene scene = aplSetup.getScene();
-        ToggleGroup mainTog = aplSetup.getMainTog();
-        Button proceed = new Button("Proceed");
-        btnExit = new Button("Exit");
-        btnExit.setOnAction(b -> LoadSaveProfile.savingProfile());
-        btnExit.setStyle(buttonStyle);
-        proceed.setStyle(buttonStyle);
+        AfterProfLoadInteractions afterProfLoadInteractions = new AfterProfLoadInteractions(aplSetup).invoke();
+        Label nutriLog = afterProfLoadInteractions.getNutriLog();
+        Label mainMenu = afterProfLoadInteractions.getMainMenu();
+        Scene scene = afterProfLoadInteractions.getScene();
+        ToggleGroup mainTog = afterProfLoadInteractions.getMainTog();
+        Button proceed = afterProfLoadInteractions.getProceed();
 
         hb.getChildren().addAll(proceed, btnExit);
         vb.getChildren().addAll(nutriLog, mainMenu, opt1, opt2, opt3, opt4, hb);
@@ -177,57 +153,13 @@ public class Main extends Application {
 
     private void bigDecision(ToggleGroup mt, Stage primaryStage) {
         try {
-            if (mt.getSelectedToggle().equals(opt1)) {
-                editCalQuota(primaryStage);
-            }
-            if (mt.getSelectedToggle().equals(opt2)) {
-                makeFood(primaryStage);
-            }
-            if (mt.getSelectedToggle().equals(opt3)) {
-                getEditCurrentCalories(primaryStage);
-            }
-            if (mt.getSelectedToggle().equals(opt4)) {
-                viewAllItems(primaryStage);
-            }
+            new BigDecisionOptions(mt, primaryStage).invoke();
         } catch (Exception exp) {
             Alert conf = new Alert(Alert.AlertType.WARNING);
             conf.setTitle("Invalid Selection");
             conf.setContentText("Please Select A Valid Option");
             conf.showAndWait();
         }
-    }
-
-    private void getEditCurrentCalories(Stage s) {
-        GridPane grid = new GridPane();
-        grid.setAlignment(Pos.CENTER);
-        grid.setHgap(10);
-        grid.setVgap(12);
-        HBox hb = new HBox();
-        hb.setSpacing(10);
-
-        ColumnConstraints column1 = new ColumnConstraints();
-        column1.setHalignment(HPos.RIGHT);
-        grid.getColumnConstraints().add(column1);
-
-        ColumnConstraints column2 = new ColumnConstraints();
-        column2.setHalignment(HPos.LEFT);
-        grid.getColumnConstraints().add(column2);
-
-        Label label = new Label("Your Current Calories Consumed: "
-                + menu.getCurrentCalories());
-        btnReturn = new Button("Return");
-        btnReturn.setOnAction(b -> afterProfLoad(s));
-        btnReturn.setStyle(buttonStyle);
-        Button btnReset = new Button("Reset");
-        btnReset.setOnAction(b -> resetMessage());
-        btnReset.setStyle(buttonStyle);
-        hb.getChildren().addAll(btnReset, btnReturn);
-
-        grid.add(label, 0,0);
-        grid.add(hb, 0, 2, 2, 1);
-        Scene sc = new Scene(grid, 480, 720);
-        s.setScene(sc);
-        s.show();
     }
 
     private void resetMessage() {
@@ -237,65 +169,6 @@ public class Main extends Application {
         conf.setTitle("Clear Caloric Consumption History");
         conf.setContentText("Caloric History Has Been Cleared");
         conf.showAndWait();
-    }
-
-    private void viewAllItems(Stage primaryStage) {
-        GridPane ecq = new GridPane();
-        HBox hb = new HBox();
-        Label foodEaten = new Label("Food Items Consumed + Caloric Fulfillment:");
-
-        ecq.setAlignment(Pos.CENTER);
-        ecq.setHgap(10);
-        ecq.setVgap(12);
-        hb.setSpacing(10.0);
-
-        ColumnConstraints column1 = new ColumnConstraints();
-        column1.setHalignment(HPos.RIGHT);
-        ecq.getColumnConstraints().add(column1);
-
-        ColumnConstraints column2 = new ColumnConstraints();
-        column2.setHalignment(HPos.LEFT);
-        ecq.getColumnConstraints().add(column2);
-
-        listCons.getItems().clear();
-        for (Consumable f : menu.getHistory()) {
-            listCons.getItems().add(f.getName() + " - " + f.getCalories() + " calorie(s)");
-        }
-
-        btnReturn = new Button("Return");
-        btnReturn.setOnAction(b -> afterProfLoad(primaryStage));
-        btnExit = new Button("Exit");
-        btnExit.setOnAction(b -> LoadSaveProfile.savingProfile());
-        btnReturn.setStyle(buttonStyle);
-        btnExit.setStyle(buttonStyle);
-
-        hb.getChildren().addAll(btnReturn, btnExit);
-        ecq.add(foodEaten, 0, 0);
-        ecq.add(listCons, 0, 1);
-        ecq.add(hb, 0, 2);
-        Scene s = new Scene(ecq, 480, 720);
-        primaryStage.setScene(s);
-        primaryStage.show();
-    }
-
-    private void editCalQuota(Stage s) {
-        GridPane grid;
-        QuotaSetup quotaSetup = new QuotaSetup().invoke();
-        grid = quotaSetup.getGrid();
-        HBox hb = quotaSetup.getHb();
-
-        Label currentQuota = new Label("Current Quota: " + menu.getCalQuota());
-        QuotaButton quotaButton = new QuotaButton(s, hb).invoke();
-        TextField calQuota = quotaButton.getCalQuota();
-        Label setQuote = quotaButton.getSetQuote();
-
-        grid.add(currentQuota, 0, 0);
-        grid.add(setQuote, 0, 2);
-        grid.add(calQuota, 1,2);
-        grid.add(hb,0,4,2,1);
-        Scene sc = new Scene(grid, 480, 720);
-        s.setScene(sc);
-        s.show();
     }
 
     protected class MainGuiSetup {
@@ -330,35 +203,13 @@ public class Main extends Application {
         }
     }
 
-    private void makeFood(Stage primaryStage) {
-        GridPane ecq = new GridPane();
-        MakeFoodSetup makeFoodSetup = new MakeFoodSetup(ecq).invoke();
-        HBox ecqBttns = makeFoodSetup.getEcqBttns();
-        Scene ecqScene = makeFoodSetup.getEcqScene();
-
-        mfInteraction(ecq, ecqBttns, primaryStage);
-        primaryStage.setScene(ecqScene);
-        primaryStage.show();
-    }
-
     private void mfInteraction(GridPane ecq, HBox ecqBttns, Stage primaryStage) {
         Label lblName = new Label("Enter Food Name:");
         TextField foodName = new TextField();
         Label lblCalories = new Label("Enter Food Calories:");
         TextField foodCalories = new TextField();
 
-        btnSubmit = new Button("Submit");
-        btnSubmit.setOnAction(b -> foodConfirmation(foodName, foodCalories));
-        btnClear = new Button("Clear");
-        btnClear.setOnAction(b -> clearFields(foodName, foodCalories));
-        btnReturn = new Button("Return");
-        btnReturn.setOnAction(b -> afterProfLoad(primaryStage));
-        btnExit = new Button("Exit");
-        btnExit.setOnAction(b -> LoadSaveProfile.savingProfile());
-        btnReturn.setStyle(buttonStyle);
-        btnExit.setStyle(buttonStyle);
-        btnClear.setStyle(buttonStyle);
-        btnSubmit.setStyle(buttonStyle);
+        new MakingFoodButtons(primaryStage, foodName, foodCalories).invoke();
 
         ecqBttns.getChildren().addAll(btnSubmit, btnClear, btnReturn, btnExit);
         ecq.add(lblName, 0, 0);
@@ -366,21 +217,6 @@ public class Main extends Application {
         ecq.add(lblCalories, 0, 1);
         ecq.add(foodCalories, 1, 1);
         ecq.add(ecqBttns, 0, 3, 2, 1);
-    }
-
-    private void clearFields(TextField foodName, TextField foodCalories) {
-        foodName.clear();
-        foodCalories.clear();
-    }
-
-    private void foodConfirmation(TextField foodName, TextField foodCalories) {
-        menu.addFood(foodName.getText(),
-                Integer.parseInt(foodCalories.getText()));
-        Alert conf = new Alert(Alert.AlertType.CONFIRMATION);
-        conf.setTitle("Food Confirmation");
-        conf.setContentText("You Have Entered: " + "\n Item: " + foodName.getText()
-                + "\n Calories: " + foodCalories.getText());
-        conf.showAndWait();
     }
 
     private class MakeFoodSetup {
@@ -532,6 +368,345 @@ public class Main extends Application {
             proceed.setStyle(buttonStyle);
             hb.getChildren().addAll(proceed, btnClear, btnReturn);
             return this;
+        }
+    }
+
+    private class IntialButtonLabelCreation {
+        private Stage primaryStage;
+
+        public IntialButtonLabelCreation(Stage primaryStage) {
+            this.primaryStage = primaryStage;
+        }
+
+        public void invoke() {
+            btnSubmit = new Button("Submit");
+            btnSubmit.setOnAction(b -> profileExists(primaryStage));
+            btnClear = new Button("Clear");
+            btnClear.setOnAction(b -> tfName.clear());
+            btnExit = new Button("Exit");
+            btnExit.setOnAction(b -> System.exit(0));
+            btnSubmit.setStyle(buttonStyle);
+            btnExit.setStyle(buttonStyle);
+            btnClear.setStyle(buttonStyle);
+
+            lblName = new Label("User Profile Name:");
+            tfName = new TextField();
+        }
+    }
+
+    private class AfterProfileLoadGui {
+        private GridPane bp;
+        private AplSetup aplSetup;
+        private VBox vb;
+        private HBox hb;
+
+        public GridPane getBp() {
+            return bp;
+        }
+
+        public AplSetup getAplSetup() {
+            return aplSetup;
+        }
+
+        public VBox getVb() {
+            return vb;
+        }
+
+        public HBox getHb() {
+            return hb;
+        }
+
+        public AfterProfileLoadGui invoke() {
+            bp = new GridPane();
+            aplSetup = new AplSetup(bp).invoke();
+            vb = aplSetup.getVb();
+            vb.setSpacing(22);
+            hb = aplSetup.getHb();
+
+            ColumnConstraints column1 = new ColumnConstraints();
+            column1.setHalignment(HPos.RIGHT);
+            bp.getColumnConstraints().add(column1);
+
+            ColumnConstraints column2 = new ColumnConstraints();
+            column2.setHalignment(HPos.LEFT);
+            bp.getColumnConstraints().add(column2);
+            return this;
+        }
+    }
+
+    private class AfterProfLoadInteractions {
+        private AplSetup aplSetup;
+        private Label nutriLog;
+        private Label mainMenu;
+        private Scene scene;
+        private ToggleGroup mainTog;
+        private Button proceed;
+
+        public AfterProfLoadInteractions(AplSetup aplSetup) {
+            this.aplSetup = aplSetup;
+        }
+
+        public Label getNutriLog() {
+            return nutriLog;
+        }
+
+        public Label getMainMenu() {
+            return mainMenu;
+        }
+
+        public Scene getScene() {
+            return scene;
+        }
+
+        public ToggleGroup getMainTog() {
+            return mainTog;
+        }
+
+        public Button getProceed() {
+            return proceed;
+        }
+
+        public AfterProfLoadInteractions invoke() {
+            nutriLog = new Label("Nutri-Log V2.0");
+            nutriLog.setStyle("-fx-font-size: 36px");
+            mainMenu = new Label("Please Select From The Following:");
+
+            scene = aplSetup.getScene();
+            mainTog = aplSetup.getMainTog();
+            proceed = new Button("Proceed");
+            btnExit = new Button("Exit");
+            btnExit.setOnAction(b -> LoadSaveProfile.savingProfile());
+            btnExit.setStyle(buttonStyle);
+            proceed.setStyle(buttonStyle);
+            return this;
+        }
+    }
+
+    private class BigDecisionOptions {
+        private ToggleGroup mt;
+        private Stage primaryStage;
+
+        public BigDecisionOptions(ToggleGroup mt, Stage primaryStage) {
+            this.mt = mt;
+            this.primaryStage = primaryStage;
+        }
+
+        public void invoke() {
+            if (mt.getSelectedToggle().equals(opt1)) {
+                editCalQuota(primaryStage);
+            }
+            if (mt.getSelectedToggle().equals(opt2)) {
+                makeFood(primaryStage);
+            }
+            if (mt.getSelectedToggle().equals(opt3)) {
+                getEditCurrentCalories(primaryStage);
+            }
+            if (mt.getSelectedToggle().equals(opt4)) {
+                viewAllItems(primaryStage);
+            }
+        }
+
+        private void editCalQuota(Stage s) {
+            GridPane grid;
+            QuotaSetup quotaSetup = new QuotaSetup().invoke();
+            grid = quotaSetup.getGrid();
+            HBox hb = quotaSetup.getHb();
+
+            Label currentQuota = new Label("Current Quota: " + menu.getCalQuota());
+            QuotaButton quotaButton = new QuotaButton(s, hb).invoke();
+            TextField calQuota = quotaButton.getCalQuota();
+            Label setQuote = quotaButton.getSetQuote();
+
+            grid.add(currentQuota, 0, 0);
+            grid.add(setQuote, 0, 2);
+            grid.add(calQuota, 1,2);
+            grid.add(hb,0,4,2,1);
+            Scene sc = new Scene(grid, 480, 720);
+            s.setScene(sc);
+            s.show();
+        }
+
+        private void makeFood(Stage primaryStage) {
+            GridPane ecq = new GridPane();
+            MakeFoodSetup makeFoodSetup = new MakeFoodSetup(ecq).invoke();
+            HBox ecqBttns = makeFoodSetup.getEcqBttns();
+            Scene ecqScene = makeFoodSetup.getEcqScene();
+
+            mfInteraction(ecq, ecqBttns, primaryStage);
+            primaryStage.setScene(ecqScene);
+            primaryStage.show();
+        }
+
+        private void getEditCurrentCalories(Stage s) {
+            EditCaloriesGuiSetup editCaloriesGuiSetup = new EditCaloriesGuiSetup().invoke();
+            GridPane grid = editCaloriesGuiSetup.getGrid();
+            HBox hb = editCaloriesGuiSetup.getHb();
+
+            Label label = new Label("Your Current Calories Consumed: "
+                    + menu.getCurrentCalories());
+            btnReturn = new Button("Return");
+            btnReturn.setOnAction(b -> afterProfLoad(s));
+            btnReturn.setStyle(buttonStyle);
+            Button btnReset = new Button("Reset");
+            btnReset.setOnAction(b -> resetMessage());
+            btnReset.setStyle(buttonStyle);
+            hb.getChildren().addAll(btnReset, btnReturn);
+
+            grid.add(label, 0,0);
+            grid.add(hb, 0, 2, 2, 1);
+            Scene sc = new Scene(grid, 480, 720);
+            s.setScene(sc);
+            s.show();
+        }
+
+        private void viewAllItems(Stage primaryStage) {
+            ViewAllGuiSetup viewAllGuiSetup = new ViewAllGuiSetup().invoke();
+            GridPane ecq = viewAllGuiSetup.getEcq();
+            HBox hb = viewAllGuiSetup.getHb();
+            Label foodEaten = viewAllGuiSetup.getFoodEaten();
+
+            new ViewAllInteractions(primaryStage).invoke();
+
+            hb.getChildren().addAll(btnReturn, btnExit);
+            ecq.add(foodEaten, 0, 0);
+            ecq.add(listCons, 0, 1);
+            ecq.add(hb, 0, 2);
+            Scene s = new Scene(ecq, 480, 720);
+            primaryStage.setScene(s);
+            primaryStage.show();
+        }
+
+        private class EditCaloriesGuiSetup {
+            private GridPane grid;
+            private HBox hb;
+
+            public GridPane getGrid() {
+                return grid;
+            }
+
+            public HBox getHb() {
+                return hb;
+            }
+
+            public EditCaloriesGuiSetup invoke() {
+                grid = new GridPane();
+                grid.setAlignment(Pos.CENTER);
+                grid.setHgap(10);
+                grid.setVgap(12);
+                hb = new HBox();
+                hb.setSpacing(10);
+
+                ColumnConstraints column1 = new ColumnConstraints();
+                column1.setHalignment(HPos.RIGHT);
+                grid.getColumnConstraints().add(column1);
+
+                ColumnConstraints column2 = new ColumnConstraints();
+                column2.setHalignment(HPos.LEFT);
+                grid.getColumnConstraints().add(column2);
+                return this;
+            }
+        }
+
+        private class ViewAllGuiSetup {
+            private GridPane ecq;
+            private HBox hb;
+            private Label foodEaten;
+
+            public GridPane getEcq() {
+                return ecq;
+            }
+
+            public HBox getHb() {
+                return hb;
+            }
+
+            public Label getFoodEaten() {
+                return foodEaten;
+            }
+
+            public ViewAllGuiSetup invoke() {
+                ecq = new GridPane();
+                hb = new HBox();
+                foodEaten = new Label("Food Items Consumed + Caloric Fulfillment:");
+
+                ecq.setAlignment(Pos.CENTER);
+                ecq.setHgap(10);
+                ecq.setVgap(12);
+                hb.setSpacing(10.0);
+
+                ColumnConstraints column1 = new ColumnConstraints();
+                column1.setHalignment(HPos.RIGHT);
+                ecq.getColumnConstraints().add(column1);
+
+                ColumnConstraints column2 = new ColumnConstraints();
+                column2.setHalignment(HPos.LEFT);
+                ecq.getColumnConstraints().add(column2);
+                return this;
+            }
+        }
+
+        private class ViewAllInteractions {
+            private Stage primaryStage;
+
+            public ViewAllInteractions(Stage primaryStage) {
+                this.primaryStage = primaryStage;
+            }
+
+            public void invoke() {
+                listCons.getItems().clear();
+                for (Consumable f : menu.getHistory()) {
+                    listCons.getItems().add(f.getName() + " - " + f.getCalories() + " calorie(s)");
+                }
+
+                btnReturn = new Button("Return");
+                btnReturn.setOnAction(b -> afterProfLoad(primaryStage));
+                btnExit = new Button("Exit");
+                btnExit.setOnAction(b -> LoadSaveProfile.savingProfile());
+                btnReturn.setStyle(buttonStyle);
+                btnExit.setStyle(buttonStyle);
+            }
+        }
+    }
+
+    private class MakingFoodButtons {
+        private Stage primaryStage;
+        private TextField foodName;
+        private TextField foodCalories;
+
+        public MakingFoodButtons(Stage primaryStage, TextField foodName, TextField foodCalories) {
+            this.primaryStage = primaryStage;
+            this.foodName = foodName;
+            this.foodCalories = foodCalories;
+        }
+
+        public void invoke() {
+            btnSubmit = new Button("Submit");
+            btnSubmit.setOnAction(b -> foodConfirmation(foodName, foodCalories));
+            btnClear = new Button("Clear");
+            btnClear.setOnAction(b -> clearFields(foodName, foodCalories));
+            btnReturn = new Button("Return");
+            btnReturn.setOnAction(b -> afterProfLoad(primaryStage));
+            btnExit = new Button("Exit");
+            btnExit.setOnAction(b -> LoadSaveProfile.savingProfile());
+            btnReturn.setStyle(buttonStyle);
+            btnExit.setStyle(buttonStyle);
+            btnClear.setStyle(buttonStyle);
+            btnSubmit.setStyle(buttonStyle);
+        }
+
+        private void foodConfirmation(TextField foodName, TextField foodCalories) {
+            menu.addFood(foodName.getText(),
+                    Integer.parseInt(foodCalories.getText()));
+            Alert conf = new Alert(Alert.AlertType.CONFIRMATION);
+            conf.setTitle("Food Confirmation");
+            conf.setContentText("You Have Entered: " + "\n Item: " + foodName.getText()
+                    + "\n Calories: " + foodCalories.getText());
+            conf.showAndWait();
+        }
+
+        private void clearFields(TextField foodName, TextField foodCalories) {
+            foodName.clear();
+            foodCalories.clear();
         }
     }
 }
