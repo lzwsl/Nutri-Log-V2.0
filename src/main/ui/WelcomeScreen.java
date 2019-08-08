@@ -57,7 +57,7 @@ public class WelcomeScreen extends Observable implements Serializable {
     }
 
     public void addSupplement(String name) {
-        Consumable s = new Supplements(name, 0);
+        Consumable s = new Supplements(name + " [supplement]", 0);
         calHistory.add(s);
     }
 

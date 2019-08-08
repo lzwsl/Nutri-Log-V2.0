@@ -41,6 +41,10 @@ public class Main extends Application {
 
     private TextField tfName;
 
+    private Integer quota;
+    private Integer currentCal;
+    private Integer difference;
+
     private ListView<String> listCons = new ListView();
 
     public static void main(String[] args) {
@@ -122,11 +126,18 @@ public class Main extends Application {
     }
 
     private void quotaConfirm(TextField calQuota) {
-        menu.setCalQuota(Integer.parseInt(calQuota.getText()));
-        Alert conf = new Alert(Alert.AlertType.INFORMATION);
-        conf.setTitle("Set Calorie Quota");
-        conf.setContentText("You Have Set Your Caloric Quota To: " + calQuota.getText() + " Calories");
-        conf.showAndWait();
+        try {
+            menu.setCalQuota(Integer.parseInt(calQuota.getText()));
+            Alert conf = new Alert(Alert.AlertType.INFORMATION);
+            conf.setTitle("Set Calorie Quota");
+            conf.setContentText("You Have Set Your Caloric Quota To: " + calQuota.getText() + " Calories");
+            conf.showAndWait();
+        } catch (Exception exp) {
+            Alert conf = new Alert(Alert.AlertType.WARNING);
+            conf.setTitle("Invalid Response");
+            conf.setContentText("Please Input Your Caloric Quota");
+            conf.showAndWait();
+        }
     }
 
     private void afterProfLoad(Stage primaryStage) {
@@ -216,6 +227,18 @@ public class Main extends Application {
         ecq.add(foodName, 1, 0);
         ecq.add(lblCalories, 0, 1);
         ecq.add(foodCalories, 1, 1);
+        ecq.add(ecqBttns, 0, 3, 2, 1);
+    }
+
+    private void msInteraction(GridPane ecq, HBox ecqBttns, Stage primaryStage) {
+        Label lblName = new Label("Enter Supplement Name:");
+        TextField supplementName = new TextField();
+
+        new MakingSupplementButtons(primaryStage, supplementName).invoke();
+
+        ecqBttns.getChildren().addAll(btnSubmit, btnClear, btnReturn, btnExit);
+        ecq.add(lblName, 0, 0);
+        ecq.add(supplementName, 1, 0);
         ecq.add(ecqBttns, 0, 3, 2, 1);
     }
 
@@ -485,6 +508,8 @@ public class Main extends Application {
     private class BigDecisionOptions {
         private ToggleGroup mt;
         private Stage primaryStage;
+        private RadioButton food;
+        private RadioButton supplement;
 
         public BigDecisionOptions(ToggleGroup mt, Stage primaryStage) {
             this.mt = mt;
@@ -496,7 +521,7 @@ public class Main extends Application {
                 editCalQuota(primaryStage);
             }
             if (mt.getSelectedToggle().equals(opt2)) {
-                makeFood(primaryStage);
+                whatToMake(primaryStage);
             }
             if (mt.getSelectedToggle().equals(opt3)) {
                 getEditCurrentCalories(primaryStage);
@@ -504,6 +529,25 @@ public class Main extends Application {
             if (mt.getSelectedToggle().equals(opt4)) {
                 viewAllItems(primaryStage);
             }
+        }
+
+        private void whatToMake(Stage s) {
+            ToMakeGuiSetup toMakeGuiSetup = new ToMakeGuiSetup().invoke();
+            GridPane grid = toMakeGuiSetup.getGrid();
+            VBox vb = toMakeGuiSetup.getVb();
+            HBox hb = toMakeGuiSetup.getHb();
+
+            Label choice = new WhatToButtons(s).invoke();
+
+            vb.getChildren().addAll(food, supplement);
+            hb.getChildren().addAll(btnSubmit, btnReturn);
+
+            grid.add(choice, 0,0);
+            grid.add(vb,0,1);
+            grid.add(hb, 0,3,2,1);
+            Scene sc = new Scene(grid, 480, 720);
+            s.setScene(sc);
+            s.show();
         }
 
         private void editCalQuota(Stage s) {
@@ -533,6 +577,17 @@ public class Main extends Application {
             Scene ecqScene = makeFoodSetup.getEcqScene();
 
             mfInteraction(ecq, ecqBttns, primaryStage);
+            primaryStage.setScene(ecqScene);
+            primaryStage.show();
+        }
+
+        private void makeSupplement(Stage primaryStage) {
+            GridPane ecq = new GridPane();
+            MakeFoodSetup makeFoodSetup = new MakeFoodSetup(ecq).invoke();
+            HBox ecqBttns = makeFoodSetup.getEcqBttns();
+            Scene ecqScene = makeFoodSetup.getEcqScene();
+
+            msInteraction(ecq, ecqBttns, primaryStage);
             primaryStage.setScene(ecqScene);
             primaryStage.show();
         }
@@ -666,6 +721,84 @@ public class Main extends Application {
                 btnExit.setStyle(buttonStyle);
             }
         }
+
+        private class ToMakeGuiSetup {
+            private GridPane grid;
+            private VBox vb;
+            private HBox hb;
+
+            public GridPane getGrid() {
+                return grid;
+            }
+
+            public VBox getVb() {
+                return vb;
+            }
+
+            public HBox getHb() {
+                return hb;
+            }
+
+            public ToMakeGuiSetup invoke() {
+                grid = new GridPane();
+                grid.setAlignment(Pos.CENTER);
+                grid.setHgap(10);
+                grid.setVgap(12);
+                vb = new VBox();
+                vb.setSpacing(20);
+                hb = new HBox();
+                hb.setSpacing(10);
+
+                ColumnConstraints column1 = new ColumnConstraints();
+                column1.setHalignment(HPos.RIGHT);
+                grid.getColumnConstraints().add(column1);
+
+                ColumnConstraints column2 = new ColumnConstraints();
+                column2.setHalignment(HPos.LEFT);
+                grid.getColumnConstraints().add(column2);
+                return this;
+            }
+        }
+
+        private class WhatToButtons {
+            private Stage stage;
+
+            public WhatToButtons(Stage s) {
+                this.stage = s;
+            }
+
+            public Label invoke() {
+                Label choice = new Label("Please Select Consumable Type:");
+                ToggleGroup tg = new ToggleGroup();
+                food = new RadioButton("Food");
+                supplement = new RadioButton("Supplement");
+                food.setToggleGroup(tg);
+                supplement.setToggleGroup(tg);
+                btnReturn = new Button("Return");
+                btnReturn.setOnAction(b -> afterProfLoad(stage));
+                btnReturn.setStyle(buttonStyle);
+                btnSubmit = new Button("Submit");
+                btnSubmit.setOnAction(b -> whichConsum(tg, stage));
+                btnSubmit.setStyle(buttonStyle);
+                return choice;
+            }
+
+            private void whichConsum(ToggleGroup tg, Stage s) {
+                try {
+                    if (tg.getSelectedToggle().equals(food)) {
+                        makeFood(s);
+                    }
+                    if (tg.getSelectedToggle().equals(supplement)) {
+                        makeSupplement(s);
+                    }
+                } catch (Exception exp) {
+                    Alert conf = new Alert(Alert.AlertType.WARNING);
+                    conf.setTitle("Invalid Selection");
+                    conf.setContentText("Please Select A Valid Option");
+                    conf.showAndWait();
+                }
+            }
+        }
     }
 
     private class MakingFoodButtons {
@@ -697,6 +830,16 @@ public class Main extends Application {
         private void foodConfirmation(TextField foodName, TextField foodCalories) {
             menu.addFood(foodName.getText(),
                     Integer.parseInt(foodCalories.getText()));
+            quota = menu.getCalQuota();
+            currentCal = menu.getCurrentCalories();
+            if (currentCal > quota) {
+                difference = currentCal - quota;
+                Alert ohno = new Alert(Alert.AlertType.WARNING);
+                ohno.setTitle("Consumption Over Caloric Quota");
+                ohno.setContentText("You Have Exceeded Your Caloric Quota By: " + difference
+                        + " Calories");
+                ohno.showAndWait();
+            }
             Alert conf = new Alert(Alert.AlertType.CONFIRMATION);
             conf.setTitle("Food Confirmation");
             conf.setContentText("You Have Entered: " + "\n Item: " + foodName.getText()
@@ -709,4 +852,52 @@ public class Main extends Application {
             foodCalories.clear();
         }
     }
+
+    private class MakingSupplementButtons {
+        private Stage primaryStage;
+        private TextField supplementName;
+
+        public MakingSupplementButtons(Stage primaryStage, TextField supplementName) {
+            this.primaryStage = primaryStage;
+            this.supplementName = supplementName;
+        }
+
+        public void invoke() {
+            btnSubmit = new Button("Submit");
+            btnSubmit.setOnAction(b -> supplementConfirmation(supplementName));
+            btnClear = new Button("Clear");
+            btnClear.setOnAction(b -> clearFields(supplementName));
+            btnReturn = new Button("Return");
+            btnReturn.setOnAction(b -> afterProfLoad(primaryStage));
+            btnExit = new Button("Exit");
+            btnExit.setOnAction(b -> LoadSaveProfile.savingProfile());
+            btnReturn.setStyle(buttonStyle);
+            btnExit.setStyle(buttonStyle);
+            btnClear.setStyle(buttonStyle);
+            btnSubmit.setStyle(buttonStyle);
+        }
+
+        private void supplementConfirmation(TextField supplementName) {
+            menu.addSupplement(supplementName.getText());
+            quota = menu.getCalQuota();
+            currentCal = menu.getCurrentCalories();
+            if (currentCal > quota) {
+                difference = currentCal - quota;
+                Alert ohno = new Alert(Alert.AlertType.WARNING);
+                ohno.setTitle("Consumption Over Caloric Quota");
+                ohno.setContentText("You Have Exceeded Your Caloric Quota By: " + difference
+                        + " Calories");
+                ohno.showAndWait();
+            }
+            Alert conf = new Alert(Alert.AlertType.CONFIRMATION);
+            conf.setTitle("Supplement Confirmation");
+            conf.setContentText("You Have Entered: " + "\n Item: " + supplementName.getText());
+            conf.showAndWait();
+        }
+
+        private void clearFields(TextField supplementName) {
+            supplementName.clear();
+        }
+    }
+
 }
